@@ -1,0 +1,21 @@
+{
+  "name": "202000032040",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "Imesh Chamara <imesh1chamara@gmail.com> (http://ic-tech.now.sh/)",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "github:discordjs/discord.js",
+    "mongodb": "^3.3.5"
+  },
+  "devDependencies": {
+    "eslint": "^6.7.2",
+    "nodemon": "^2.0.1"
+  }
+}
