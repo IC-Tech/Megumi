@@ -4,7 +4,7 @@ const auth = require('../auth.json')
 const MongoClient = require('mongodb').MongoClient
 
 var cachedDb
-const MDB = async() => (cachedDb ? cachedDb : cachedDb = await (await MongoClient.connect(auth.mongodb, { useNewUrlParser: true, useUnifiedTopology: true })).db('ic-tech'))
+const MDB = async() => (cachedDb ? cachedDb : cachedDb = await (await MongoClient.connect(auth.mongodb, { useNewUrlParser: true, useUnifiedTopology: true })).db('202000032040'))
 const DB = async a => ((await MDB()).collection(a))
 const MDB_Check = a => a && a.result && a.result.ok == 1
 const admin = '473941394474401813'
