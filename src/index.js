@@ -3,6 +3,7 @@ const client = new Client({ partials: ['MESSAGE', 'CHANNEL'] })
 const auth = require('../auth.json')
 const MongoClient = require('mongodb').MongoClient
 
+var cachedDb
 const MDB = async() => (cachedDb ? cachedDb : cachedDb = await (await MongoClient.connect(auth.mongodb, { useNewUrlParser: true, useUnifiedTopology: true })).db('ic-tech'))
 const DB = async a => ((await MDB()).collection(a))
 const MDB_Check = a => a && a.result && a.result.ok == 1
@@ -13,14 +14,24 @@ const str = [
 //username
 //mention 1
 //mention all
+//arg all
 const str1 = {
 	cry: [
 		'😭 Cry',
-		'**{0}** is now really sad uwu',
-		'**{0}** is now really sad about {2}'
+		'**_0_** is now really sad _3_'
 	]
 }
-const fn_0 = a => [a, a.channel, a.author, a.mentions]
+const col = [
+	0xFF0000,
+	0xFEFEFE
+]
+const fn_0 = a => {
+	a = [a, a.channel, a.author, a.mentions]
+	var b = null
+	if(a[0].guild) b = a[0].guild.member(a[2]).nickname
+	a.push(b ? b : a[2].username)
+	return a
+}
 //https://discordapp.com/developers/docs/topics/opcodes-and-status-codes
 const fn_1 = async (b, a, c = '✅') => {
 	try {
