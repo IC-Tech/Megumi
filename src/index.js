@@ -102,6 +102,29 @@ const fn_5 = (a, b, c) => {
 	d.forEach((_a, _b) => a.match((_b = [_b, 0])[1] = new RegExp('_' + _b[0] + '_', 'g')) ? _a(_b[1]) : 0)
 	return a
 }
+const db_findNUpdate = async (a, b, op) => {
+	var c = await a.findOne(op.f)
+	var d = b((!op.noFill || op.def) && !c ? (op.def ? op.def : {}) : c)
+	if(!c) {
+		if (!MDB_Check(await a.insertOne(Object.assign(op.f, d), {}))) throw new Error('db_findNUpdate faild 0')
+	}
+	else if(!MDB_Check(await a.updateOne(op.f, {$set: d}, {}))) throw new Error('db_findNUpdate faild 1')
+}
+const getChannel = async (a, d) => {
+	var b = await DB('channel')
+	var c
+	await db_findNUpdate(b, a => {
+		return (a = [c = (a.a = ((a.a++) >= --d ? 0 : a.a)), a])[1]
+	}, {f: a, def: {a: 0}})
+	return c
+}
+const sendActions = async (a, b, c) => {
+	if(b.channel.type == 'dm') return
+	b = fn_0(b)
+	var e = str1[c]
+	var d = (await (await DB('gifs')).findOne({name:c})).d
+	await fn_3(b, fn_5(e[0], b, a), fn_5(e[1], b, a), d[await getChannel({g: b[0].guild.id, c: b[1].id, n: c}, d.length)])
+}
 const comm = {
 	help: {
 		des: str[0],
