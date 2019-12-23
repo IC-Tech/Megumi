@@ -258,7 +258,6 @@ const comm = {
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
     client.user.setActivity(`IC Bot state: ${process.env.dev ? 'Dev mode' : 'online'}`)
-    console.log(await getChannel({g: '474625296038100992', c: '653185338092683274', n: 'cry'}))
     //client.users.get(admin).send('IC-Bot is active')
 })
 client.on('messageReactionAdd', async (reaction, user) => {
