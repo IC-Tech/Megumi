@@ -18,7 +18,11 @@ const str = [
 const str1 = {
 	cry: [
 		'😭 Cry',
-		'**_0_** is now really sad _3_'
+		'**_0_** is now really sad _3_',
+	],
+	happy: [
+		'😄 Happy',
+		'**_0_** is really happy right now _3_',
 	]
 }
 const col = [
@@ -150,12 +154,11 @@ const comm = {
 	},
 	cry: {
 		des: str[0],
-		ac: async (a,b) => {
-			if(b.channel.type == 'dm') return
-			b = fn_0(b)
-			var c = str1.cry
-			await fn_3(b, fn_5(c[0], b, a), fn_5(c[1], b, a), 'https://media1.tenor.com/images/98466bf4ae57b70548f19863ca7ea2b4/tenor.gif?itemid=14682297')
-		}
+		ac: async (a,b) => await sendActions(a, b, 'cry')
+	},
+	happy: {
+		des: str[0],
+		ac: async (a,b) => await sendActions(a, b, 'happy')
 	},
 	about: {
 		des: str[0],
