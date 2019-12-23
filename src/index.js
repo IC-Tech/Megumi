@@ -41,16 +41,8 @@ const fn_1 = async (b, a, c = '✅') => {
 		await b[0].react(c)
 	}
 	catch (a) {
-		if(a.code != 50013) {
-			console.log(a)
-		}
-		try {
-			await b[0].react('❌')
-		}
-		catch {}
+		await fn_4(a, b)
 	}
-		/*
-		re(a)*/
 }
 const fn_2 = (a, b= 1024) => (a = typeof a == 'string' ? a : (a ? a : '[-undefined-]').toString()).length > b ? (a.substr(0, b - 3) + '...') : a
 const fn_3 = (b, ...a) => fn_1({
@@ -72,14 +64,15 @@ const comm = {
 	avatar: {
 		des: str[0],
 		ac: async (a,b) => {
+			if(b.channel.type == 'dm') return
 			b = fn_0(b)
-			console.log(b[0].guild.member(b[2]).nickname)
+			var c = b[2].avatar ? b[2].avatarURL({size: 2048}) : 'https://cdn.discordapp.com/embed/avatars/1.png'
 			await fn_1(b, {
 				title:'🖼 Avatar',
-				color: 0xFEFEFE,
-				description: `**${b[2].username}**'s avatar is located 🔗 [here](${b[2].avatarURL({size: 2048})})`,
+				color: col[1],
+				description: `**${b[4]}**'s avatar is located 🔗 [here](${c})`,
 				image: {
-					url: b[2].avatarURL({format: 'png', size: 512})
+					url: c
 				}
 			})
 		}
@@ -87,8 +80,10 @@ const comm = {
 	cry: {
 		des: str[0],
 		ac: async (a,b) => {
+			if(b.channel.type == 'dm') return
 			b = fn_0(b)
-			await fn_3(b, `😭 Cry`, `**${b[2].username}** is now really sad uwu`, 'https://media1.tenor.com/images/98466bf4ae57b70548f19863ca7ea2b4/tenor.gif?itemid=14682297')
+			var c = str1.cry
+			await fn_3(b, fn_5(c[0], b, a), fn_5(c[1], b, a), 'https://media1.tenor.com/images/98466bf4ae57b70548f19863ca7ea2b4/tenor.gif?itemid=14682297')
 		}
 	},
 	about: {
@@ -105,11 +100,15 @@ const comm = {
 				},
 				description: 'IC Bot is first bot created by Imesh Chamara\nIt is still on development.',
 				thumbnail: 'https://i.imgur.com/jVrtzic.png',
-				fields: {
-					name: 'Copyright © Imesh Chamara 2019',
-					value: '**Discord:** ImeshChamara#1418\n**Website:** https://ic-tech.now.sh'
+				fields: [
+					{
+						name: 'Copyright © Imesh Chamara 2019',
+						value: '**Discord:** ImeshChamara#1418\n**Website:** https://ic-tech.now.sh'
+					}
+				],
+				image: {
+					url: 'https://i.imgur.com/7BM6r9H.png'
 				},
-				image: 'https://i.imgur.com/7BM6r9H.png',
 				timestamp: new Date()
 			})
 		}
@@ -120,9 +119,9 @@ const comm = {
 			b = fn_0(b)
 			if(b[2].id != admin) {
 				await fn_1(b, {
-					name: '🤖 ACCESS DENIED',
-					color: 0xFF0000,
-					descrption: 'You have not access to this function.'
+					title: '🤖 ACCESS DENIED',
+					color: col[0],
+					description: 'You have not access to this function.'
 				}, '❌')
 				return
 			}
@@ -187,7 +186,8 @@ const comm = {
 };
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    client.user.setActivity(`IC Bot state: ${process.env.dev ? 'Dev mode' : 'online'}`);
+    client.user.setActivity(`IC Bot state: ${process.env.dev ? 'Dev mode' : 'online'}`)
+    console.log(await getChannel({g: '474625296038100992', c: '653185338092683274', n: 'cry'}))
     //client.users.get(admin).send('IC-Bot is active')
 })
 client.on('messageReactionAdd', async (reaction, user) => {
@@ -206,36 +206,10 @@ client.on('message', async msg => {
 	a[0] = a[0].substr((b > 0 ? b : a[0].indexOf('!')) + 1).toLowerCase()
 	if(!Object.keys(comm).some(b => b == a[0])) return
 	try {
-		comm[a[0]].ac(a, msg)
+		await comm[a[0]].ac(a, msg)
 	}
 	catch(e) {
-		console.log(typeof e)
-		await fn_1(fn_0(msg), {
-			name: '❌ IC-ERROR', 
-			color: 0xFF0000, 
-			description: 'Something went wrong, please try again later or contact the developer (type i.about).'
-		}, '❌')
-		client.users.get(admin).send({
-			embed: {
-				color: 0xF04342,
-				title: '❌ Error',
-				description: 'Error detected 0x01',
-				field: [
-					{name: 'name', value: fn_2(e.name)},
-					{name: 'message', value: fn_2(e.message)}
-				],
-				timestamp: new Date(),
-				file: {
-					attachment: Buffer.from(JSON.stringify({
-						name: fn_2(e.name, 1024 * 10),
-						code: fn_2(e.code, 1024 * 10),
-						message: fn_2(e.message, 1024 * 10),
-						stack: fn_2(e.stack, 1024 * 10)
-					})),
-					name: new Date().toString() + '.json'
-				}
-			}
-		})
+		await fn_4(e, fn_0(msg))
 	}
 });
 console.log('ready to login')
