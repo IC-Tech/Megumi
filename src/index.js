@@ -45,8 +45,8 @@ const fn_1 = async (b, a, c = '✅') => {
 	}
 }
 const fn_2 = (a, b= 1024) => (a = typeof a == 'string' ? a : (a ? a : '[-undefined-]').toString()).length > b ? (a.substr(0, b - 3) + '...') : a
-const fn_3 = (b, ...a) => fn_1({
-	color: 0xFEFEFE,
+const fn_3 = (b, ...a) => fn_1(b, {
+	color: col[1],
 	title: a[0],
 	description: a[1],
 	image: {
