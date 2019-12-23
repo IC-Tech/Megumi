@@ -54,6 +54,54 @@ const fn_3 = (b, ...a) => fn_1(b, {
 	},
 	timestamp: new Date()
 })
+const fn_4 = (a, b) => new Promise((_a, _b) => {
+	var d = _ => {
+		if(a.code != 50013) {
+			console.log(new Date(), a)
+			client.users.get(admin).send({
+				embed: {
+					color: 0xF04342,
+					title: '❌ Error',
+					description: 'Error detected 0x01',
+					field: [
+						{name: 'name', value: fn_2(a.name)},
+						{name: 'message', value: fn_2(a.message)}
+					],
+					timestamp: new Date()
+				},
+				files: [
+					{
+						attachment: Buffer.from(JSON.stringify({
+						name: fn_2(a.name, 1024 * 10),
+							code: fn_2(a.code, 1024 * 10),
+							message: fn_2(a.message, 1024 * 10),
+							stack: fn_2(a.stack, 1024 * 10)
+						})),
+						name: 'bug-report.json'
+					}
+				]
+			})
+		}
+	}
+	var c = _ => b[1].send({
+		embed: {
+			name: '❌ IC-ERROR', 
+			color: col[0], 
+			description: 'Something went wrong, please try again later or contact the developer (type i.about).'
+		}
+	}).then(d).catch(d)
+	b[0].react('❌').then(c).catch(c)
+})
+const fn_5 = (a, b, c) => {
+	d = [
+		_ => a = a.replace(_, b[4]),
+		_ => a = a.replace(_, b[3][0]),
+		_ => a = a.replace(_, b[3].join(' ')),
+		_ => a = a.replace(_, c.slice(1).join(' '))
+	]
+	d.forEach((_a, _b) => a.match((_b = [_b, 0])[1] = new RegExp('_' + _b[0] + '_', 'g')) ? _a(_b[1]) : 0)
+	return a
+}
 const comm = {
 	help: {
 		des: str[0],
