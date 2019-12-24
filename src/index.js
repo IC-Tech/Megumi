@@ -233,7 +233,7 @@ const comm = {
 			var done
 			if(a.length >= 5 && a[1] == 'add' && a[2] == 'image') {
 				await db_findNUpdate(await DB('gifs'), b => {
-					if(!b.d.some(b => b == a[4])) b.d.push(a[4])
+					a.slice(3).forEach(a => a.startsWith('https://') && !b.d.some(b => b == a) ? b.d.push(a) : 0)
 					return b
 				}, {f: {name: a[3]}, def: {name: a[3], d: []}})
 				done = 1
@@ -249,11 +249,10 @@ const comm = {
 				done = 1
 			}
 			if(done) await fn_1(b, {
-					title: '😎 Success',
-					color: col[2],
-					description: 'Request has successfully finished.'
-				}, '✅')
-			console.log(a)
+				title: '😎 Success',
+				color: col[2],
+				description: 'Request has successfully finished.'
+			}, '✅')
 		}
 	}
 };
