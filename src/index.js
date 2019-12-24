@@ -129,11 +129,11 @@ const db_findNUpdate = async (a, b, op) => {
 	}
 	else if(!MDB_Check(await a.updateOne(op.f, {$set: d}, {}))) throw new Error('db_findNUpdate faild 1')
 }
-const getChannel = async (a, d) => {
+const getChannel = async (a, d, e) => {
 	var b = await DB('channel')
 	var c
 	await db_findNUpdate(b, a => {
-		return (a = [c = (a.a = ((a.a++) >= --d ? 0 : a.a)), a])[1]
+		return (a = [c = (a.a = ((a.a++) >= --d ? 0 : a.a)), a.t = e, a])[2]
 	}, {f: a, def: {a: 0}})
 	return c
 }
@@ -142,7 +142,7 @@ const sendActions = async (a, b, c) => {
 	b = fn_0(b)
 	var e = str1[c]
 	var d = (await (await DB('gifs')).findOne({name:e[2]})).d
-	await fn_3(b, fn_5(e[0], b, a), fn_5(e[1], b, a), d[await getChannel({g: b[0].guild.id, c: b[1].id, n: c}, d.length)])
+	await fn_3(b, fn_5(e[0], b, a), fn_5(e[1], b, a), d[await getChannel({g: b[0].guild.id, c: b[1].id, n: c}, d.length, b[0].channel.type)])
 }
 const comm = {
 	help: {
