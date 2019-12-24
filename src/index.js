@@ -224,7 +224,15 @@ const comm = {
 			}, '✅')
 		}
 	}
-};
+}
+const fn_6 = a=> ({
+	des: comm[a].des,
+	ac: comm[a].ac,
+	cone: true
+})
+const clone = {
+	sys: "system"
+}
 Object.keys(str1).forEach(a=> {
 	var b = {}
 	const c = a
@@ -233,6 +241,10 @@ Object.keys(str1).forEach(a=> {
 		ac: async (a,b) => await sendActions(a, b, c)
 	}
 })
+;([
+	['sys', 'system']
+]).forEach(a=> comm[a[0]] = fn_6(a[1]))
+console.log(comm)
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
     client.user.setActivity(`IC Bot state: ${process.env.dev ? 'Dev mode' : 'online'}`)
