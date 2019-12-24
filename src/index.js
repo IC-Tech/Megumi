@@ -19,48 +19,17 @@ const str = [
 //mention all
 //arg all
 const str1 = {
-	cry: [
-		'😭 Cry',
-		'**_0_** is now really sad _3_',
-		'cry',
-		str[0]
-	],
-	sad: [
-		'😭 Sad',
-		'**_0_** is now really sad _3_',
-		'cry',
-		str[0]
-	],
-	happy: [
-		'😄 Happy',
-		'**_0_** is really happy right now _3_',
-		'smile',
-		str[0]
-	],
-	smile: [
-		'😄 Smile',
-		'**_0_** is really happy right now _3_',
-		'smile',
-		str[0]
-	],
-	pat: [
-		'✋ Pat',
-		'**_0_** pats _3_',
-		'pat',
-		str[0]
-	],
-	hug: [
-		'👐 Hug',
-		'**_0_** hugs _3_',
-		'hug',
-		str[0]
-	],
-	purr: [
-		'😻 Purr',
-		'**_0_** purrs _3_',
-		'purr',
-		str[0]
-	]
+	cry: [ '😭 Cry', '**_0_** is now really sad _3_', 'cry', str[0] ],
+	sad: [ '😭 Sad', '**_0_** is now really sad _3_', 'cry', str[0] ],
+	happy: [ '😄 Happy', '**_0_** is really happy right now _3_', 'smile', str[0] ],
+	smile: [ '😄 Smile', '**_0_** is really happy right now _3_', 'smile', str[0] ],
+	pat: [ '✋ Pat', '**_0_** pats _3_', 'pat', str[0] ],
+	hug: [ '👐 Hug', '**_0_** hugs _3_', 'hug', str[0] ],
+	purr: [ '😻 Purr', '**_0_** purrs _3_', 'purr', str[0] ],
+	yes: [ '👍 Yes', '**_0_** thinks it\'s great _3_', 'yes', str[0] ],
+	no: [ '👎 No', '**_0_** thinks it\'s bad _3_', 'no', str[0] ],
+	dance: [ '🕺 Dance', '**_0_** dances _3_', 'dance', str[0] ],
+	bite: [ '🤤 Bite', '**_0_** bites _3_', 'bite', str[0] ],
 }
 const col = [
 	0xFF0000,
