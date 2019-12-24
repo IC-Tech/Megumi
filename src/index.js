@@ -22,15 +22,26 @@ const str1 = {
 	cry: [
 		'😭 Cry',
 		'**_0_** is now really sad _3_',
+		'cry',
+		str[0]
 	],
 	happy: [
 		'😄 Happy',
 		'**_0_** is really happy right now _3_',
+		'smile',
+		str[0]
+	],
+	smile: [
+		'😄 Smile',
+		'**_0_** is really happy right now _3_',
+		'smile',
+		str[0]
 	]
 }
 const col = [
 	0xFF0000,
-	0xFEFEFE
+	0xFEFEFE,
+	0x2ECC71
 ]
 const fn_0 = a => {
 	a = [a, a.channel, a.author, a.mentions]
@@ -112,6 +123,7 @@ const fn_5 = (a, b, c) => {
 const db_findNUpdate = async (a, b, op) => {
 	var c = await a.findOne(op.f)
 	var d = b((!op.noFill || op.def) && !c ? (op.def ? op.def : {}) : c)
+	if(!d) return
 	if(!c) {
 		if (!MDB_Check(await a.insertOne(Object.assign(op.f, d), {}))) throw new Error('db_findNUpdate faild 0')
 	}
@@ -129,7 +141,7 @@ const sendActions = async (a, b, c) => {
 	if(b.channel.type == 'dm') return
 	b = fn_0(b)
 	var e = str1[c]
-	var d = (await (await DB('gifs')).findOne({name:c})).d
+	var d = (await (await DB('gifs')).findOne({name:e[2]})).d
 	await fn_3(b, fn_5(e[0], b, a), fn_5(e[1], b, a), d[await getChannel({g: b[0].guild.id, c: b[1].id, n: c}, d.length)])
 }
 const comm = {
@@ -154,14 +166,6 @@ const comm = {
 				}
 			})
 		}
-	},
-	cry: {
-		des: str[0],
-		ac: async (a,b) => await sendActions(a, b, 'cry')
-	},
-	happy: {
-		des: str[0],
-		ac: async (a,b) => await sendActions(a, b, 'happy')
 	},
 	about: {
 		des: str[0],
@@ -207,6 +211,14 @@ const comm = {
 		}
 	}
 };
+Object.keys(str1).forEach(a=> {
+	var b = {}
+	const c = a
+	comm[a] = {
+		des: str1[a][3],
+		ac: async (a,b) => await sendActions(a, b, c)
+	}
+})
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
     client.user.setActivity(`IC Bot state: ${process.env.dev ? 'Dev mode' : 'online'}`)
