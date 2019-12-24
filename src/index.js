@@ -206,7 +206,29 @@ const comm = {
 				}, '❌')
 				return
 			}
-
+			var done
+			if(a.length >= 5 && a[1] == 'add' && a[2] == 'image') {
+				await db_findNUpdate(await DB('gifs'), b => {
+					if(!b.d.some(b => b == a[4])) b.d.push(a[4])
+					return b
+				}, {f: {name: a[3]}, def: {name: a[3], d: []}})
+				done = 1
+			}
+			else if(a.length >= 5 && a[1] == 'rem' && a[2] == 'image') {
+				await db_findNUpdate(await DB('gifs'), b => {
+					var c = []
+					b.d.forEach(b => b == a[4] ? 0 : c.push(b))
+					if(c.length == b.d.length) return
+					b.d = c
+					return b
+				}, {f: {name: a[3]}, def: {name: a[3], d: []}})
+				done = 1
+			}
+			if(done) await fn_1(b, {
+					title: '😎 Success',
+					color: col[2],
+					description: 'Request has successfully finished.'
+				}, '✅')
 			console.log(a)
 		}
 	}
