@@ -65,11 +65,11 @@ const fn_4 = (a, b) => new Promise((_a, _b) => {
 	var d = _ => {
 		if(a.code != 50013) {
 			console.log(new Date(), a)
-			client.users.get(admin).send({
+			if(settings.logs) client.users.get(admin).send({
 				embed: {
 					color: 0xF04342,
 					title: '❌ Error',
-					description: 'Error detected 0x01',
+					description: 'nii-chan tasukete, error desu',
 					field: [
 						{name: 'name', value: fn_2(a.name)},
 						{name: 'message', value: fn_2(a.message)}
