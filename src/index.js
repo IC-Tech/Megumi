@@ -3,6 +3,9 @@ const client = new Client({ partials: ['MESSAGE', 'CHANNEL'] })
 const auth = require('../auth.json')
 const MongoClient = require('mongodb').MongoClient
 
+var settings = {
+	logs: !process.env.dev
+}
 var cachedDb
 const MDB = async() => (cachedDb ? cachedDb : cachedDb = await (await MongoClient.connect(auth.mongodb, { useNewUrlParser: true, useUnifiedTopology: true })).db('202000032040'))
 const DB = async a => ((await MDB()).collection(a))
@@ -202,74 +205,20 @@ const comm = {
 
 			console.log(a)
 		}
-	},
-	test: {
-		des: str[0],
-		ac: async (a,b) => {
-    	b.channel.send({
-    		embed: {
-    			color: 0x0099ff,
-    			title: 'Some title',
-    			url: 'https://discord.js.org/',
-    			author: {
-						name: 'Some name',
-						icon_url: 'https://i.imgur.com/wSTFkRM.png',
-						url: 'https://discord.js.org',
-					},
-					description: 'Some description here',
-					thumbnail: {
-						url: 'https://i.imgur.com/wSTFkRM.png',
-					},
-					fields: [
-						{
-							name: 'Regular field title',
-							value: 'Some value here',
-						},
-						{
-							name: '\u200b',
-							value: '\u200b',
-						},
-						{
-							name: 'Inline field title',
-							value: 'Some value here',
-							inline: true,
-						},
-						{
-							name: 'Inline field title',
-							value: 'Some value here',
-							inline: true,
-						},
-						{
-							name: 'Inline field title',
-							value: 'Some value here',
-							inline: true,
-						},
-					],
-					image: {
-						url: 'https://i.imgur.com/wSTFkRM.png',
-					},
-					timestamp: new Date(),
-					footer: {
-						text: 'Some footer text here',
-						icon_url: 'https://i.imgur.com/wSTFkRM.png',
-					}
-    		}
-			});
-		}
 	}
 };
 client.on('ready', async () => {
-    console.log(`Logged in as ${client.user.tag}!`);
+    console.log(`Logged in as ${client.user.tag}!`)
     client.user.setActivity(`IC Bot state: ${process.env.dev ? 'Dev mode' : 'online'}`)
     //client.users.get(admin).send('IC-Bot is active')
 })
 client.on('messageReactionAdd', async (reaction, user) => {
-	console.log('Reaction added; current count:', reaction.count);
-});
+	console.log('Reaction added; current count:', reaction.count)
+})
 
 client.on('messageReactionRemove', async (reaction, user) => {
-	console.log('Reaction removed; current count:', reaction.count);
-});
+	console.log('Reaction removed; current count:', reaction.count)
+})
 client.on('message', async msg => {
 	var b = msg.content.toLowerCase()
 	if(!['i.', 'ic.', 'i!', 'ic!'].some(a => b.startsWith(a))) return
@@ -284,6 +233,6 @@ client.on('message', async msg => {
 	catch(e) {
 		await fn_4(e, fn_0(msg))
 	}
-});
+})
 console.log('ready to login')
 client.login(auth.token)
