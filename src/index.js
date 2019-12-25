@@ -30,6 +30,8 @@ const str1 = {
 	no: [ '👎 No', '**_0_** thinks it\'s bad _3_', 'no', str[0] ],
 	dance: [ '🕺 Dance', '**_0_** dances _3_', 'dance', str[0] ],
 	bite: [ '🤤 Bite', '**_0_** bites _3_', 'bite', str[0] ],
+	wave: [ '✋ Wave', '**_0_** waves _3_', 'wave', str[0] ],
+	bye: [ '✋ Bye', '**_0_** says goodbye _3_', 'wave', str[0] ],
 }
 const col = [
 	0xFF0000,
@@ -244,7 +246,6 @@ Object.keys(str1).forEach(a=> {
 ;([
 	['sys', 'system']
 ]).forEach(a=> comm[a[0]] = fn_6(a[1]))
-console.log(comm)
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
     client.user.setActivity(`IC Bot state: ${process.env.dev ? 'Dev mode' : 'online'}`)
