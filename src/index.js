@@ -32,6 +32,12 @@ const str1 = {
 	bite: [ '🤤 Bite', '**_0_** bites _3_', 'bite', str[0] ],
 	wave: [ '✋ Wave', '**_0_** waves _3_', 'wave', str[0] ],
 	bye: [ '✋ Bye', '**_0_** says goodbye _3_', 'wave', str[0] ],
+	kill: [ '🔪 Kill', '**_0_** wants to kill _3_', 'kill', str[0] ],
+	poke: [ '👉 Poke', '**_0_** pokes _3_', 'poke', str[0] ],
+	slap: [ '✋ slap', '**_0_** slaps _3_', 'slap', str[0] ],
+	punch: [ '👊 punch', '**_0_** punches _3_', 'punch', str[0] ],
+	die: [ '👻 Die', '**_0_** dies _3_', 'die', str[0] ],
+	dead: [ '👻 Dead', '**_0_** dies _3_', 'die', str[0] ],
 }
 const col = [
 	0xFF0000,
