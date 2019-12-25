@@ -51,7 +51,6 @@ const fn_0 = a => {
 	a.push(b ? b : a[2].username)
 	return a
 }
-//https://discordapp.com/developers/docs/topics/opcodes-and-status-codes
 const fn_1 = async (b, a, c = '✅') => {
 	try {
 		await b[1].send({
@@ -225,10 +224,19 @@ const comm = {
 				}, {f: {name: a[3]}, def: {name: a[3], d: []}})
 				done = 1
 			}
+			else if(a.length >= 4 && a[1] == 'len' && a[2] == 'image') {
+				done = ['']
+				await Promise.all(a.slice(3).map(a => new Promise(async d => {
+					await db_findNUpdate(await DB('gifs'), b => {
+						done[0] += `${a} databse is ${b.d.length} long\n`
+					}, {f: {name: a}, def: {name: a, d: []}})
+					d()
+				})))
+			}
 			if(done) await fn_1(b, {
-				title: '😎 Success',
+				title: done == 1 || done.length == 1 ? '😎 Success' : done[0],
 				color: col[2],
-				description: 'Request has successfully finished.'
+				description: done == 1 ? 'Request has successfully finished.' : (done.length == 1 ? done[0] : done[1])
 			}, '✅')
 		}
 	}
@@ -257,6 +265,7 @@ client.on('ready', async () => {
     client.user.setActivity(`IC Bot state: ${process.env.dev ? 'Dev mode' : 'online'}`)
     //client.users.get(admin).send('IC-Bot is active')
 })
+/* future code function, no need for now
 client.on('messageReactionAdd', async (reaction, user) => {
 	console.log('Reaction added; current count:', reaction.count)
 })
@@ -264,6 +273,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 client.on('messageReactionRemove', async (reaction, user) => {
 	console.log('Reaction removed; current count:', reaction.count)
 })
+*/
 client.on('message', async msg => {
 	var b = msg.content.toLowerCase()
 	if(!['i.', 'ic.', 'i!', 'ic!'].some(a => b.startsWith(a))) return
