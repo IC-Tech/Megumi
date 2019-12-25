@@ -20,7 +20,7 @@ const str = [
 //arg all
 const str1 = {
 	cry: [ '😭 Cry', '**_0_** is now really sad _3_', 'cry', str[0] ],
-	sad: [ '😭 Sad', '**_0_** is now really sad _3_', 'cry', str[0] ],
+	sad: [ '😭 Sad', '**_0_** is now really sad _3_', 'sad', str[0] ],
 	happy: [ '😄 Happy', '**_0_** is really happy right now _3_', 'smile', str[0] ],
 	smile: [ '😄 Smile', '**_0_** is really happy right now _3_', 'smile', str[0] ],
 	pat: [ '✋ Pat', '**_0_** pats _3_', 'pat', str[0] ],
@@ -38,6 +38,11 @@ const str1 = {
 	punch: [ '👊 punch', '**_0_** punches _3_', 'punch', str[0] ],
 	die: [ '👻 Die', '**_0_** dies _3_', 'die', str[0] ],
 	dead: [ '👻 Dead', '**_0_** dies _3_', 'die', str[0] ],
+	steal: [ '😈 Steal', '**_0_** want to steal _3_', 'steal', str[0] ],
+	run: [ '🏃‍♂ Run', '**_0_** want to run _3_', 'run', str[0] ],
+	laugh: [ '🤣 Laugh', '**_0_** laughs _3_', 'laugh', str[0] ],
+	shy: [ '😳 Shy', '**_0_** is shy _3_', 'shy', str[0] ],
+	sleep: [ '😳 Sleep', '**_0_** wants to sleep _3_', 'sleep', str[0] ],
 }
 const col = [
 	0xFF0000,
