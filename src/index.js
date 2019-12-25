@@ -174,7 +174,7 @@ const comm = {
 					icon_url: 'https://i.imgur.com/jVrtzic.png',
 					url: 'https://ic-tech.now.sh'
 				},
-				description: 'IC Bot is first bot created by Imesh Chamara\nIt is still on development.',
+				description: 'IC Bot is first bot created by Imesh Chamara\nIt is still on development.\n\nThis bot is open-source and totally free.',
 				thumbnail: 'https://i.imgur.com/jVrtzic.png',
 				fields: [
 					{
