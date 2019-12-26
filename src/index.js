@@ -43,7 +43,9 @@ const str1 = {
 	run: [ '🏃‍♂ Run', '**_0_** want to run _3_', 'run', str[0] ],
 	laugh: [ '🤣 Laugh', '**_0_** laughs _3_', 'laugh', str[0] ],
 	shy: [ '😳 Shy', '**_0_** is shy _3_', 'shy', str[0] ],
-	sleep: [ '😳 Sleep', '**_0_** wants to sleep _3_', 'sleep', str[0] ],
+	sleep: [ '😴 Sleep', '**_0_** wants to sleep _3_', 'sleep', str[0] ],
+	stare: [ '🤨 stare', '**_0_** stares _3_', 'stare', str[0] ],
+	glare: [ '😠 glare', '**_0_** glares _3_', 'glare', str[0] ],
 }
 const col = [
 	0xFF0000,
@@ -234,7 +236,7 @@ const comm = {
 				done = ['']
 				await Promise.all(a.slice(3).map(a => new Promise(async d => {
 					await db_findNUpdate(await DB('gifs'), b => {
-						done[0] += `${a} databse is ${b.d.length} long\n`
+						done[0] += `${a} command is ${b.d.length} long\n`
 					}, {f: {name: a}, def: {name: a, d: []}})
 					d()
 				})))
