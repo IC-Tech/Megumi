@@ -178,7 +178,7 @@ const comm = {
 		ac: async (a,b) => {
 			await fn_1(fn_0(b), {
 				color: 0x0099ff,
-				title: 'About IC Bot',
+				title: 'About Megumi Bot',
 				url: 'https://ic-tech.now.sh',
 				author: {
 					name: 'Megumi Bot', 
