@@ -32,6 +32,7 @@ const str1 = {
 	bite: [ '🤤 Bite', '**_0_** bites _3_', 'bite', str[0] ],
 	wave: [ '✋ Wave', '**_0_** waves _3_', 'wave', str[0] ],
 	bye: [ '✋ Bye', '**_0_** says goodbye _3_', 'wave', str[0] ],
+	cya: [ '✋ Cya', '**_0_** says goodbye _3_', 'wave', str[0] ],
 	kill: [ '🔪 Kill', '**_0_** wants to kill _3_', 'kill', str[0] ],
 	poke: [ '👉 Poke', '**_0_** pokes _3_', 'poke', str[0] ],
 	slap: [ '✋ slap', '**_0_** slaps _3_', 'slap', str[0] ],
@@ -180,11 +181,11 @@ const comm = {
 				title: 'About IC Bot',
 				url: 'https://ic-tech.now.sh',
 				author: {
-					name: 'IC Bot', 
+					name: 'Megumi Bot', 
 					icon_url: 'https://i.imgur.com/jVrtzic.png',
 					url: 'https://ic-tech.now.sh'
 				},
-				description: 'IC Bot is first bot created by Imesh Chamara\nIt is still on development.\n\nThis bot is open-source and totally free.',
+				description: 'Megumi is first bot created by Imesh Chamara\nIt is still on development.\n\nThis bot is open-source and totally free.',
 				thumbnail: 'https://i.imgur.com/jVrtzic.png',
 				fields: [
 					{
