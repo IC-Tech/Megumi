@@ -18,6 +18,7 @@ const str = [
 //mention 1
 //mention all
 //arg all
+//Chanel name
 const str1 = {
 	cry: [ '😭 Cry', '**_0_** is now really sad _3_', 'cry', str[0] ],
 	sad: [ '😭 Sad', '**_0_** is now really sad _3_', 'sad', str[0] ],
@@ -53,10 +54,11 @@ const col = [
 	0x2ECC71
 ]
 const fn_0 = a => {
-	a = [a, a.channel, a.author, a.mentions]
+	a = [a, a.channel, a.author, a.mentions ]
 	var b = null
 	if(a[0].guild) b = a[0].guild.member(a[2]).nickname
 	a.push(b ? b : a[2].username)
+	a.push(a[0].guild.available ? a[0].guild : null)
 	return a
 }
 const fn_1 = async (b, a, c = '✅') => {
@@ -111,8 +113,8 @@ const fn_4 = (a, b) => new Promise((_a, _b) => {
 	}
 	var c = _ => b[1].send({
 		embed: {
-			name: '❌ IC-ERROR', 
-			color: col[0], 
+			name: '❌ IC-ERROR',
+			color: col[0],
 			description: 'Something went wrong, please try again later or contact the developer (type i.about).'
 		}
 	}).then(d).catch(d)
@@ -123,7 +125,8 @@ const fn_5 = (a, b, c) => {
 		_ => a = a.replace(_, b[4]),
 		_ => a = a.replace(_, b[3][0]),
 		_ => a = a.replace(_, b[3].join(' ')),
-		_ => a = a.replace(_, c.slice(1).join(' '))
+		_ => a = a.replace(_, c.slice(1).join(' ')),
+		_ => a = a.replace(_, b[5].name)
 	]
 	d.forEach((_a, _b) => a.match((_b = [_b, 0])[1] = new RegExp('_' + _b[0] + '_', 'g')) ? _a(_b[1]) : 0)
 	return a
@@ -150,7 +153,7 @@ const sendActions = async (a, b, c) => {
 	b = fn_0(b)
 	var e = str1[c]
 	var d = (await (await DB('gifs')).findOne({name:e[2]})).d
-	await fn_3(b, fn_5(e[0], b, a), fn_5(e[1], b, a), d[await getChannel({g: b[0].guild.id, c: b[1].id, n: c}, d.length, b[0].channel.type)])
+	await fn_3(b, fn_5(e[0], b, a), fn_5(e[1], b, a), d[await getChannel({g: b[5].id, c: b[1].id, n: c}, d.length, b[0].channel.type)])
 }
 const comm = {
 	help: {
@@ -183,7 +186,7 @@ const comm = {
 				title: 'About Megumi Bot',
 				url: 'https://ic-tech.now.sh',
 				author: {
-					name: 'Megumi Bot', 
+					name: 'Megumi Bot',
 					icon_url: 'https://i.imgur.com/jVrtzic.png',
 					url: 'https://ic-tech.now.sh'
 				},
