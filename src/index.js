@@ -47,11 +47,14 @@ const str1 = {
 	sleep: [ '😴 Sleep', '**_0_** wants to sleep _3_', 'sleep', str[0] ],
 	stare: [ '🤨 stare', '**_0_** stares _3_', 'stare', str[0] ],
 	glare: [ '😠 glare', '**_0_** glares _3_', 'glare', str[0] ],
+	kiss: [ '😙 kiss', '**_0_** want to kiss _3_', 'kiss', str[0] ],
+	lick: [ '😛 lick', '**_0_** licks _3_', 'lick', str[0] ],
 }
 const col = [
 	0xFF0000,
 	0xFEFEFE,
-	0x2ECC71
+	0x2ECC71,
+	0x10B174
 ]
 const fn_0 = a => {
 	a = [a, a.channel, a.author, a.mentions ]
