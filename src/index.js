@@ -4,6 +4,7 @@ const auth = require('../auth.json')
 const MongoClient = require('mongodb').MongoClient
 const actions = require('./actions.js').actions
 const col = require('./colors.js').colors
+const str = require('./strings.json')
 
 var settings = {
 	logs: !process.env.dev
@@ -13,9 +14,7 @@ const MDB = async() => (cachedDb ? cachedDb : cachedDb = await (await MongoClien
 const DB = async a => ((await MDB()).collection(a))
 const MDB_Check = a => a && a.result && a.result.ok == 1
 const admin = '473941394474401813'
-const str = [
-	'[no description provided by @ImeshChamar#1418]'
-];
+
 const fn_0 = a => {
 	a = [a, a.channel, a.author, a.mentions ]
 	var b = null
@@ -120,13 +119,13 @@ const sendActions = async (a, b, c) => {
 }
 const comm = {
 	help: {
-		des: str[0],
+		des: str.common[0],
 		ac: async (a,b) => {
 			new ICError()
 		}
 	},
 	avatar: {
-		des: str[0],
+		des: str.common[0],
 		ac: async (a,b) => {
 			if(b.channel.type == 'dm') return
 			b = fn_0(b)
@@ -142,7 +141,7 @@ const comm = {
 		}
 	},
 	about: {
-		des: str[0],
+		des: str.common[0],
 		ac: async (a,b) => {
 			await fn_1(fn_0(b), {
 				color: 0x0099ff,
@@ -169,7 +168,7 @@ const comm = {
 		}
 	},
 	ping: {
-		des: str[0],
+		des: str.common[0],
 		ac: async (a,b) => {
 			await fn_1(fn_0(b), {
 				color: col[7],
@@ -179,7 +178,7 @@ const comm = {
 		}
 	},
 	system: {
-		des: str[0],
+		des: str.common[0],
 		ac: async (a,b) => {
 			b = fn_0(b)
 			if(b[2].id != admin) {
@@ -225,7 +224,7 @@ const comm = {
 		}
 	},
 	set: {
-		des: str[0],
+		des: str.common[0],
 		ac: async (a,b) => {
 			a = a.slice(1)
 			if(a.length == 0) return
