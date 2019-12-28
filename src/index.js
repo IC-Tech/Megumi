@@ -61,7 +61,7 @@ const fn_0 = a => {
 	var b = null
 	if(a[0].guild) b = a[0].guild.member(a[2]).nickname
 	a.push(b ? b : a[2].username)
-	a.push(a[0].guild.available ? a[0].guild : null)
+	a.push(a[0].guild && a[0].guild.available ? a[0].guild : null)
 	return a
 }
 const fn_1 = async (b, a, c = '✅') => {
