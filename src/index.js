@@ -264,6 +264,33 @@ const comm = {
 				description: done == 1 ? 'Request has successfully finished.' : (done.length == 1 ? done[0] : done[1])
 			}, '✅')
 		}
+	},
+	set: {
+		des: str[0],
+		ac: async (a,b) => {
+			a = a.slice(1)
+			if(a.length == 0) return
+			a[0] = a[0].toLowerCase()
+			b = fn_0(b)
+			if(a[0] == 'welcome') {
+				if(a[1].toLowerCase() == 'no') {
+					await db_findNUpdate(await DB('guild'), a => ([delete a.wel, a])[1], {f: {t:'guild', g: b[5].id}, def: {t:'guild', g: b[5].id, wel: 0}})
+					a[1] = 'no'
+				}
+				if(b[3].channels.size < 0)
+					return await fn_1(b, {
+						title: '❌ INVALID ARGUMENTS',
+						description: 'You have to mention a channel',
+						timestamp: new Date()
+					}, '❌')
+				await db_findNUpdate(await DB('guild'), a => ([a.wel = Array.from(b[3].channels.keys())[0], a])[1], {f: {t:'guild', g: b[5].id}, def: {t:'guild', g: b[5].id}})
+				await fn_1(b, {
+					title: '👍 Success',
+					description: `The welcome meaages will ${a[1] == 'no' ? 'not received' : ('received in <#' +Array.from(b[3].channels.keys())[0] + '>')}`,
+					timestamp: new Date()
+				})
+			}
+		}
 	}
 }
 const fn_6 = a=> ({
@@ -299,6 +326,25 @@ client.on('messageReactionRemove', async (reaction, user) => {
 	console.log('Reaction removed; current count:', reaction.count)
 })
 */
+client.on('guildMemberAdd', async a => {
+	var b = await (await DB('guild')).findOne({t:'guild', g: a.guild.id})
+	if(!b) return
+	var c = a.user.avatar ? a.user.avatarURL({size: 128}) : 'https://cdn.discordapp.com/embed/avatars/1.png?size=128'
+	await (await client.channels.fetch(b.wel)).send({
+		embed: {
+			color: col[3],
+			author: {
+				name: a.username,
+				icon_url: c
+			},
+			description: `welcome <@${a.user.id}> to **${a.guild.name}**`,
+			thumbnail: {
+				url: c
+			},
+			timestamp: new Date()
+		}
+	})
+})
 client.on('message', async msg => {
 	var b = msg.content.toLowerCase()
 	if(!['i.', 'ic.', 'i!', 'ic!'].some(a => b.startsWith(a))) return
