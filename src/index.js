@@ -2,6 +2,8 @@ const { Client, RichEmbed } = require('discord.js')
 const client = new Client({ partials: ['MESSAGE', 'CHANNEL'] })
 const auth = require('../auth.json')
 const MongoClient = require('mongodb').MongoClient
+const actions = require('./actions.js').actions
+const col = require('./colors.js').colors
 
 var settings = {
 	logs: !process.env.dev
@@ -14,48 +16,6 @@ const admin = '473941394474401813'
 const str = [
 	'[no description provided by @ImeshChamar#1418]'
 ];
-//username
-//mention 1
-//mention all
-//arg all
-//Chanel name
-const str1 = {
-	cry: [ '😭 Cry', '**_0_** is now really sad _3_', 'cry', str[0] ],
-	sad: [ '😭 Sad', '**_0_** is now really sad _3_', 'sad', str[0] ],
-	happy: [ '😄 Happy', '**_0_** is really happy right now _3_', 'smile', str[0] ],
-	smile: [ '😄 Smile', '**_0_** is really happy right now _3_', 'smile', str[0] ],
-	pat: [ '✋ Pat', '**_0_** pats _3_', 'pat', str[0] ],
-	hug: [ '👐 Hug', '**_0_** hugs _3_', 'hug', str[0] ],
-	purr: [ '😻 Purr', '**_0_** purrs _3_', 'purr', str[0] ],
-	yes: [ '👍 Yes', '**_0_** thinks it\'s great _3_', 'yes', str[0] ],
-	no: [ '👎 No', '**_0_** thinks it\'s bad _3_', 'no', str[0] ],
-	dance: [ '🕺 Dance', '**_0_** dances _3_', 'dance', str[0] ],
-	bite: [ '🤤 Bite', '**_0_** bites _3_', 'bite', str[0] ],
-	wave: [ '✋ Wave', '**_0_** waves _3_', 'wave', str[0] ],
-	bye: [ '✋ Bye', '**_0_** says goodbye _3_', 'wave', str[0] ],
-	cya: [ '✋ Cya', '**_0_** says goodbye _3_', 'wave', str[0] ],
-	kill: [ '🔪 Kill', '**_0_** wants to kill _3_', 'kill', str[0] ],
-	poke: [ '👉 Poke', '**_0_** pokes _3_', 'poke', str[0] ],
-	slap: [ '✋ slap', '**_0_** slaps _3_', 'slap', str[0] ],
-	punch: [ '👊 punch', '**_0_** punches _3_', 'punch', str[0] ],
-	die: [ '👻 Die', '**_0_** dies _3_', 'die', str[0] ],
-	dead: [ '👻 Dead', '**_0_** dies _3_', 'die', str[0] ],
-	steal: [ '😈 Steal', '**_0_** want to steal _3_', 'steal', str[0] ],
-	run: [ '🏃‍♂ Run', '**_0_** want to run _3_', 'run', str[0] ],
-	laugh: [ '🤣 Laugh', '**_0_** laughs _3_', 'laugh', str[0] ],
-	shy: [ '😳 Shy', '**_0_** is shy _3_', 'shy', str[0] ],
-	sleep: [ '😴 Sleep', '**_0_** wants to sleep _3_', 'sleep', str[0] ],
-	stare: [ '🤨 stare', '**_0_** stares _3_', 'stare', str[0] ],
-	glare: [ '😠 glare', '**_0_** glares _3_', 'glare', str[0] ],
-	kiss: [ '😙 kiss', '**_0_** want to kiss _3_', 'kiss', str[0] ],
-	lick: [ '😛 lick', '**_0_** licks _3_', 'lick', str[0] ],
-}
-const col = [
-	0xFF0000,
-	0xFEFEFE,
-	0x2ECC71,
-	0x10B174
-]
 const fn_0 = a => {
 	a = [a, a.channel, a.author, a.mentions ]
 	var b = null
@@ -154,7 +114,7 @@ const getChannel = async (a, d, e) => {
 const sendActions = async (a, b, c) => {
 	if(b.channel.type == 'dm') return
 	b = fn_0(b)
-	var e = str1[c]
+	var e = actions[c]
 	var d = (await (await DB('gifs')).findOne({name:e[2]})).d
 	await fn_3(b, fn_5(e[0], b, a), fn_5(e[1], b, a), d[await getChannel({g: b[5].id, c: b[1].id, n: c}, d.length, b[0].channel.type)])
 }
@@ -212,7 +172,7 @@ const comm = {
 		des: str[0],
 		ac: async (a,b) => {
 			await fn_1(fn_0(b), {
-				color: 0x0099ff,
+				color: col[7],
 				title: 'Ping',
 				description: `Yes, I'm online. ${(new Date() - b.createdAt) + 'ms'} has taken to recive your message.`
 		}
@@ -299,11 +259,11 @@ const fn_6 = a=> ({
 const clone = {
 	sys: "system"
 }
-Object.keys(str1).forEach(a=> {
+Object.keys(actions).forEach(a=> {
 	var b = {}
 	const c = a
 	comm[a] = {
-		des: str1[a][3],
+		des: actions[a][3],
 		ac: async (a,b) => await sendActions(a, b, c)
 	}
 })
@@ -330,7 +290,7 @@ client.on('guildMemberAdd', async a => {
 	var c = a.user.avatar ? a.user.avatarURL({size: 128}) : 'https://cdn.discordapp.com/embed/avatars/1.png?size=128'
 	await (await client.channels.fetch(b.wel)).send({
 		embed: {
-			color: col[3],
+			color: col[2],
 			author: {
 				name: a.username,
 				icon_url: c
