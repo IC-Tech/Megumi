@@ -175,6 +175,7 @@ const comm = {
 				color: col[7],
 				title: 'Ping',
 				description: `Yes, I'm online. ${(new Date() - b.createdAt) + 'ms'} has taken to recive your message.`
+			})
 		}
 	},
 	system: {
