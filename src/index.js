@@ -208,6 +208,17 @@ const comm = {
 			})
 		}
 	},
+	ping: {
+		des: str[0],
+		ac: async (a,b) => {
+			console.log(b.createdAt, b.createdTimestamp)
+			console.log(await fn_1(fn_0(b), {
+				color: 0x0099ff,
+				title: 'Ping',
+				description: `Yes, I'm online. ${(new Date() - b.createdAt) + 'ms'} has taken to recive your message.`
+			}))
+		}
+	},
 	system: {
 		des: str[0],
 		ac: async (a,b) => {
