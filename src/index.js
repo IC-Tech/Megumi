@@ -119,9 +119,17 @@ const sendActions = async (a, b, c) => {
 }
 const comm = {
 	help: {
-		des: str.common[0],
+		des: str.command.help,
 		ac: async (a,b) => {
-			var c = str.common[0]
+			var c = 
+`Use **i.help [command]** to get more info on a specific command, for example: **i.help smile**
+**Profile**
+${"```"}avatar${"```"}
+**Roleplay**
+${"```"}${Object.keys(actions).join(', ')}${"```"}
+**Management**
+${"```"}set${"```"}
+`
 			var d = col[3]
 			if(a.length > 1) {
 				if(comm[a[1]]) c = comm[a[1]].des
@@ -138,7 +146,7 @@ const comm = {
 		}
 	},
 	avatar: {
-		des: str.common[0],
+		des: str.command.avatar,
 		ac: async (a,b) => {
 			if(b.channel.type == 'dm') return
 			b = fn_0(b)
@@ -154,7 +162,7 @@ const comm = {
 		}
 	},
 	about: {
-		des: str.common[0],
+		des: str.command.about,
 		ac: async (a,b) => {
 			await fn_1(fn_0(b), {
 				color: 0x0099ff,
@@ -181,7 +189,7 @@ const comm = {
 		}
 	},
 	ping: {
-		des: str.common[0],
+		des: str.command.ping,
 		ac: async (a,b) => {
 			await fn_1(fn_0(b), {
 				color: col[7],
@@ -191,7 +199,7 @@ const comm = {
 		}
 	},
 	system: {
-		des: str.common[0],
+		des: str.command.system,
 		ac: async (a,b) => {
 			b = fn_0(b)
 			if(b[2].id != admin) {
@@ -237,7 +245,7 @@ const comm = {
 		}
 	},
 	set: {
-		des: str.common[0],
+		des: str.command.set,
 		ac: async (a,b) => {
 			a = a.slice(1)
 			if(a.length == 0) return
