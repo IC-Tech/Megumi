@@ -121,7 +121,20 @@ const comm = {
 	help: {
 		des: str.common[0],
 		ac: async (a,b) => {
-			new ICError()
+			var c = str.common[0]
+			var d = col[3]
+			if(a.length > 1) {
+				if(comm[a[1]]) c = comm[a[1]].des
+				else {
+					c = "<@651450006573678605> doesn't have command like that. try **i.help** to find commands."
+					d = col[6]
+				}
+			}
+			await fn_1(fn_0(b), {
+				color: d,
+				title: `❔ Help${a.length > 1 ? ` » ${a[1]}` : ''}`,
+				description: c
+			})
 		}
 	},
 	avatar: {
@@ -172,7 +185,7 @@ const comm = {
 		ac: async (a,b) => {
 			await fn_1(fn_0(b), {
 				color: col[7],
-				title: 'Ping',
+				title: '⏱ Ping',
 				description: `Yes, I'm online. ${(new Date() - b.createdAt) + 'ms'} has taken to recive your message.`
 			})
 		}
