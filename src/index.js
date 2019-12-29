@@ -150,11 +150,14 @@ ${"```"}set${"```"}
 		ac: async (a,b) => {
 			if(b.channel.type == 'dm') return
 			b = fn_0(b)
+			if(b[3].users.size > 0) b[2] = b[3].users.get(Array.from(b[3].users.keys())[0])
 			var c = b[2].avatar ? b[2].avatarURL({size: 2048}) : 'https://cdn.discordapp.com/embed/avatars/1.png'
+			var d = b[5] ? b[5].member(b[2]).nickname : b[2].username
+			d = d ? d : b[2].username
 			await fn_1(b, {
 				title:'🖼 Avatar',
 				color: col[1],
-				description: `**${b[4]}**'s avatar is located 🔗 [here](${c})`,
+				description: `**${d}**'s avatar is located 🔗 [here](${c})`,
 				image: {
 					url: c
 				}
@@ -278,7 +281,8 @@ const fn_6 = a=> ({
 	cone: true
 })
 const clone = {
-	sys: "system"
+	sys: "system",
+	info: "about"
 }
 Object.keys(actions).forEach(a=> {
 	var b = {}
@@ -293,7 +297,7 @@ Object.keys(actions).forEach(a=> {
 ]).forEach(a=> comm[a[0]] = fn_6(a[1]))
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
-    client.user.setActivity(`IC Bot state: ${process.env.dev ? 'Dev mode' : 'online'}`)
+    client.user.setActivity(`i.help • Bot: ${process.env.dev ? 'Dev mode' : 'online'} • servers: ${client.guilds.size} • users: ${client.users.size}`, { type: 'WATCHING'})
     //client.users.get(admin).send('IC-Bot is active')
 })
 /* future code function, no need for now
