@@ -27,7 +27,7 @@ exports.actions = {
 	die: [ '👻 Die', '**_0_** dies _3_', 'die', str.actions.die ],
 	dead: [ '👻 Dead', '**_0_** dies _3_', 'die', str.actions.dead ],
 	steal: [ '😈 Steal', '**_0_** want to steal _3_', 'steal', str.actions.steal ],
-	run: [ '🏃‍♂ Run', '**_0_** want to run _3_', 'run', str.actions.run ],
+	run: [ '🏃 Run', '**_0_** want to run _3_', 'run', str.actions.run ],
 	laugh: [ '🤣 Laugh', '**_0_** laughs _3_', 'laugh', str.actions.laugh ],
 	shy: [ '😳 Shy', '**_0_** is shy _3_', 'shy', str.actions.shy ],
 	sleep: [ '😴 Sleep', '**_0_** wants to sleep _3_', 'sleep', str.actions.sleep ],
@@ -35,4 +35,7 @@ exports.actions = {
 	glare: [ '😠 glare', '**_0_** glares _3_', 'glare', str.actions.glare ],
 	kiss: [ '😙 kiss', '**_0_** want to kiss _3_', 'kiss', str.actions.kiss ],
 	lick: [ '😛 lick', '**_0_** licks _3_', 'lick', str.actions.lick ],
+	facepalm: [ '😒 Facepalm', '**_0_** facepalms _3_', 'facepalm', str.actions.facepalm ],
+	pout: [ '😤 Pout', '**_0_** want to pout now _3_', 'pout', str.actions.pout ],
+	greet: [ '✋ Greet', '**_0_** greets _3_', 'wave', str.actions.greet ],
 }

@@ -1,6 +1,7 @@
 {
 	"common": [
-		"[no description provided by <@473941394474401813>]"
+		"[no description provided by <@473941394474401813>]",
+		"\n\n**example**\nM._0_\nM._0_ <@651450006573678605>"
 	],
 	"actions": {
 		"cry": "This command shows that you want to cry.",
@@ -8,8 +9,8 @@
 		"happy": "This command shows that you are in happy.",
 		"smile": "This command shows that you are smile.",
 		"pat": "This command shows that you want to pat.",
-		"hug": "This command shows that you want to hug.",
-		"purr": "[no description provided by <@473941394474401813>]",
+		"hug": "This command shows that you want to purring.",
+		"purr": "This command shows that you are purring.",
 		"yes": "This command shows that you like that thing.",
 		"no": "This command shows that you dislike that thing.",
 		"dance": "This command shows that you want to dance.",
@@ -30,7 +31,10 @@
 		"stare": "This command shows that you are stare.",
 		"glare": "This command shows that you are glare.",
 		"kiss": "This command shows that you want to kiss.",
-		"lick": "This command shows that you want to lick."
+		"lick": "This command shows that you want to lick.",
+		"facepalm": "This command shows that you facepalming.",
+		"pout": "This command shows that you pouting.",
+		"greet": "[no description provided by <@473941394474401813>]"
 	},
 	"command": {
 		"help": "this command helps you to find commands and tells what they do.",
@@ -38,6 +42,6 @@
 		"about": "this command show the information about bot.",
 		"ping": "this command help to check bot speed.",
 		"system": "Please stay away from this command, this command belongs to server developer.",
-		"set": "this command help you to change settings."
+		"set": "this command help you to change settings.\n**Welcome example**\nM.set welcome no\nM.set welcome #channel"
 	}
 }
