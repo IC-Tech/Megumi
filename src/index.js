@@ -77,7 +77,7 @@ const fn_4 = (a, b) => new Promise((_a, _b) => {
 		embed: {
 			name: '❌ IC-ERROR',
 			color: col[0],
-			description: 'Something went wrong, please try again later or contact the developer (type i.about).'
+			description: 'Something went wrong, please try again later or contact the developer (type M.about).'
 		}
 	}).then(d).catch(d)
 	b[0].react('❌').then(c).catch(c)
@@ -122,7 +122,7 @@ const comm = {
 		des: str.command.help,
 		ac: async (a,b) => {
 			var c = 
-`Use **i.help [command]** to get more info on a specific command, for example: **i.help smile**
+`Use **M.help [command]** to get more info on a specific command, for example: **M.help smile**
 
 **Profile**
 ${"`"}avatar${"`"}
@@ -137,7 +137,7 @@ ${"`"}set${"`"}
 			if(a.length > 1) {
 				if(comm[a[1]]) c = comm[a[1]].des
 				else {
-					c = "<@651450006573678605> doesn't have command like that. try **i.help** to find commands."
+					c = "<@651450006573678605> doesn't have command like that. try **M.help** to find commands."
 					d = col[6]
 				}
 			}
@@ -300,14 +300,13 @@ Object.keys(actions).forEach(a=> {
 ]).forEach(a=> comm[a[0]] = fn_6(a[1]))
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
-    client.user.setActivity(`i.help • Bot: ${process.env.dev ? 'Dev mode' : 'online'} • servers: ${client.guilds.size} • users: ${client.users.size}`, { type: 'WATCHING'})
+    client.user.setActivity(`M.help • Bot: ${process.env.dev ? 'Dev mode' : 'online'} • servers: ${client.guilds.size} • users: ${client.users.size}`, { type: 'WATCHING'})
     //client.users.get(admin).send('IC-Bot is active')
 })
 /* future code function, no need for now
 client.on('messageReactionAdd', async (reaction, user) => {
 	console.log('Reaction added; current count:', reaction.count)
 })
-
 client.on('messageReactionRemove', async (reaction, user) => {
 	console.log('Reaction removed; current count:', reaction.count)
 })
@@ -333,7 +332,7 @@ client.on('guildMemberAdd', async a => {
 })
 client.on('message', async msg => {
 	var b = msg.content.toLowerCase()
-	if(!['i.', 'ic.', 'i!', 'ic!'].some(a => b.startsWith(a))) return
+	if(!['m.', 'ic.', 'i!', 'ic!'].some(a => b.startsWith(a))) return
 	var a = msg.content.split(' ')
 	if(a[a.length - 1] == '') a.pop()
 	b = a[0].indexOf('.')
