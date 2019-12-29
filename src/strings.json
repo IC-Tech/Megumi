@@ -37,11 +37,11 @@
 		"greet": "[no description provided by <@473941394474401813>]"
 	},
 	"command": {
-		"help": "this command helps you to find commands and tells what they do.",
-		"avatar": "this command show the avatar of user.",
-		"about": "this command show the information about bot.",
-		"ping": "this command help to check bot speed.",
+		"help": "this command helps you to find commands and tells what they do.\n\n**example**\nM.help\nM.help smile",
+		"avatar": "this command show the avatar of user.\n\n**example**\nM.avatar\nM.avatar <@651450006573678605>",
+		"about": "this command show the information about bot.\n\n**example**\nM.about",
+		"ping": "this command help to check bot speed.\n\n**example**\nM.ping",
 		"system": "Please stay away from this command, this command belongs to bot developer.",
-		"set": "this command help you to change settings.\n**Welcome example**\nM.set welcome no\nM.set welcome #channel"
+		"set": "this command help you to change settings.\n\n**Welcome example**\nM.set welcome no\nM.set welcome #channel"
 	}
 }
