@@ -123,12 +123,15 @@ const comm = {
 		ac: async (a,b) => {
 			var c = 
 `Use **i.help [command]** to get more info on a specific command, for example: **i.help smile**
+
 **Profile**
-${"```"}avatar${"```"}
+${"`"}avatar${"`"}
+
 **Roleplay**
-${"```"}${Object.keys(actions).join(', ')}${"```"}
+${"`"}${Object.keys(actions).join(', ')}${"`"}
+
 **Management**
-${"```"}set${"```"}
+${"`"}set${"`"}
 `
 			var d = col[3]
 			if(a.length > 1) {
