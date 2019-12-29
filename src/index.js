@@ -93,6 +93,7 @@ const fn_5 = (a, b, c) => {
 	d.forEach((_a, _b) => a.match((_b = [_b, 0])[1] = new RegExp('_' + _b[0] + '_', 'g')) ? _a(_b[1]) : 0)
 	return a
 }
+const acUp = a => client.user.setActivity(`M.help • Bot: ${process.env.dev ? 'developing' : 'online'} • servers: ${client.guilds.size} • users: ${client.users.size}`, { type: 'WATCHING'})
 const db_findNUpdate = async (a, b, op) => {
 	var c = await a.findOne(op.f)
 	var d = b((!op.noFill || op.def) && !c ? (op.def ? op.def : {}) : c)
@@ -309,7 +310,7 @@ Object.keys(actions).forEach(a=> {
 ]).forEach(a=> comm[a[0]] = fn_6(a[1]))
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
-    client.user.setActivity(`M.help • Bot: ${process.env.dev ? 'developing' : 'online'} • servers: ${client.guilds.size} • users: ${client.users.size}`, { type: 'WATCHING'})
+    acUp()
     //client.users.get(admin).send('IC-Bot is active')
 })
 /* future code function, no need for now
@@ -320,7 +321,14 @@ client.on('messageReactionRemove', async (reaction, user) => {
 	console.log('Reaction removed; current count:', reaction.count)
 })
 */
+client.on('guildCreate', async a => acUp())
+client.on('guildDelete', async a => {
+	acUp()
+	//cleanGuild()
+})
+client.on('guildMemberRemove', async a => acUp())
 client.on('guildMemberAdd', async a => {
+	acUp()
 	var b = await (await DB('guild')).findOne({t:'guild', g: a.guild.id})
 	if(!b) return
 	var c = a.user.avatar ? a.user.avatarURL({size: 128}) : 'https://cdn.discordapp.com/embed/avatars/1.png?size=128'
