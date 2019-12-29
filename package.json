@@ -17,5 +17,13 @@
   "devDependencies": {
     "eslint": "^6.7.2",
     "nodemon": "^2.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IC-Tech/202000032040.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IC-Tech/202000032040/issues"
+  },
+  "homepage": "https://github.com/IC-Tech/202000032040#readme"
 }
