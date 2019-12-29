@@ -38,4 +38,7 @@ exports.actions = {
 	facepalm: [ '😒 Facepalm', '**_0_** facepalms _3_', 'facepalm', str.actions.facepalm ],
 	pout: [ '😤 Pout', '**_0_** want to pout now _3_', 'pout', str.actions.pout ],
 	greet: [ '✋ Greet', '**_0_** greets _3_', 'wave', str.actions.greet ],
+	shrug: [ '🤨 Shrug', '**_0_** shrugs _3_', 'shrug', str.common[0] ],
+	clap: [ '👏 Clap', '**_0_** claps _3_', 'clap', str.common[0] ],
+	highfive: [ '✋ High five', '**_0_** highfives _3_', 'highfive', str.common[0] ]
 }
