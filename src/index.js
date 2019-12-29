@@ -257,9 +257,15 @@ ${"`"}ping, about, help${"`"}
 		des: str.command.set,
 		ac: async (a,b) => {
 			a = a.slice(1)
-			if(a.length == 0) return
-			a[0] = a[0].toLowerCase()
 			b = fn_0(b)
+			const e = async a => await fn_1(b, {
+				color: col[0],
+				title: '❌ INVALID ARGUMENTS',
+				description: 'specific command not found, try **M.help set** for more info.',
+				timestamp: new Date()
+			}, '❌')
+			if(a.length == 0) return await e()
+			a[0] = a[0].toLowerCase()
 			if(a[0] == 'welcome') {
 				if(a[1].toLowerCase() == 'no') {
 					await db_findNUpdate(await DB('guild'), a => ([delete a.wel, a])[1], {f: {t:'guild', g: b[5].id}, def: {t:'guild', g: b[5].id, wel: 0}})
@@ -267,17 +273,20 @@ ${"`"}ping, about, help${"`"}
 				}
 				if(b[3].channels.size < 0)
 					return await fn_1(b, {
+						color: col[0],
 						title: '❌ INVALID ARGUMENTS',
 						description: 'You have to mention a channel',
 						timestamp: new Date()
 					}, '❌')
 				await db_findNUpdate(await DB('guild'), a => ([a.wel = Array.from(b[3].channels.keys())[0], a])[1], {f: {t:'guild', g: b[5].id}, def: {t:'guild', g: b[5].id}})
 				await fn_1(b, {
+					color: col[6],
 					title: '👍 Success',
 					description: `The welcome meaages will ${a[1] == 'no' ? 'not received' : ('received in <#' +Array.from(b[3].channels.keys())[0] + '>')}`,
 					timestamp: new Date()
 				})
 			}
+			else await e()
 		}
 	}
 }
