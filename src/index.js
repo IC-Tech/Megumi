@@ -286,10 +286,6 @@ const fn_6 = a=> ({
 	ac: comm[a].ac,
 	cone: true
 })
-const clone = {
-	sys: "system",
-	info: "about"
-}
 Object.keys(actions).forEach(a=> {
 	var b = {}
 	const c = a
@@ -299,11 +295,12 @@ Object.keys(actions).forEach(a=> {
 	}
 })
 ;([
-	['sys', 'system']
+	['sys', 'system'],
+	['info', 'about']
 ]).forEach(a=> comm[a[0]] = fn_6(a[1]))
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
-    client.user.setActivity(`M.help • Bot: ${process.env.dev ? 'Dev mode' : 'online'} • servers: ${client.guilds.size} • users: ${client.users.size}`, { type: 'WATCHING'})
+    client.user.setActivity(`M.help • Bot: ${process.env.dev ? 'developing' : 'online'} • servers: ${client.guilds.size} • users: ${client.users.size}`, { type: 'WATCHING'})
     //client.users.get(admin).send('IC-Bot is active')
 })
 /* future code function, no need for now
@@ -322,7 +319,7 @@ client.on('guildMemberAdd', async a => {
 		embed: {
 			color: col[2],
 			author: {
-				name: a.username,
+				name: a.user.username,
 				icon_url: c
 			},
 			description: `welcome <@${a.user.id}> to **${a.guild.name}**`,
