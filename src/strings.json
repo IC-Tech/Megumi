@@ -1,5 +1,35 @@
 {
 	"common": [
 		"[no description provided by <@473941394474401813>]"
-	]
+	],
+	"actions": {
+		"cry": "This command shows that you want to cry.",
+		"sad": "This command shows that you are in sad.",
+		"happy": "This command shows that you are in happy.",
+		"smile": "This command shows that you are smile.",
+		"pat": "This command shows that you want to pat.",
+		"hug": "This command shows that you want to hug.",
+		"purr": "[no description provided by <@473941394474401813>]",
+		"yes": "This command shows that you like that thing.",
+		"no": "This command shows that you dislike that thing.",
+		"dance": "This command shows that you want to dance.",
+		"bite": "This command shows that you want to bite.",
+		"wave": "This command shows that you want to wave.",
+		"bye": "This command shows that you want to say goodbye.",
+		"kill": "This command shows that you want to kill.",
+		"poke": "This command shows that you want to poke.",
+		"slap": "This command shows that you want to slap.",
+		"punch": "This command shows that you want to punch.",
+		"die": "This command shows that you want to die.",
+		"dead": "This command shows that you are dead.",
+		"steal": "This command shows that you want to steal.",
+		"run": "This command shows that you want to run.",
+		"laugh": "This command shows that you want to laugh.",
+		"shy": "This command shows that you are shy.",
+		"sleep": "This command shows that you want to sleep.",
+		"stare": "This command shows that you are stare.",
+		"glare": "This command shows that you are glare.",
+		"kiss": "This command shows that you want to kiss.",
+		"lick": "This command shows that you want to lick."
+	} 
 }
