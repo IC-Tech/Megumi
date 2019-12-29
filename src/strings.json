@@ -41,7 +41,7 @@
 		"avatar": "this command show the avatar of user.",
 		"about": "this command show the information about bot.",
 		"ping": "this command help to check bot speed.",
-		"system": "Please stay away from this command, this command belongs to server developer.",
+		"system": "Please stay away from this command, this command belongs to bot developer.",
 		"set": "this command help you to change settings.\n**Welcome example**\nM.set welcome no\nM.set welcome #channel"
 	}
 }
