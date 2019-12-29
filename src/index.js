@@ -132,6 +132,9 @@ ${"`"}${Object.keys(actions).join(', ')}${"`"}
 
 **Management**
 ${"`"}set${"`"}
+
+**Information**
+${"`"}ping, about, help${"`"}
 `
 			var d = col[3]
 			if(a.length > 1) {
@@ -291,7 +294,7 @@ Object.keys(actions).forEach(a=> {
 	var b = {}
 	const c = a
 	comm[a] = {
-		des: actions[a][3],
+		des: actions[a][3] + str.common[1].replace(/_0_/g, a),
 		ac: async (a,b) => await sendActions(a, b, c)
 	}
 })
