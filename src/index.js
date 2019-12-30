@@ -201,10 +201,15 @@ ${"`"}ping, about, help${"`"}
 	ping: {
 		des: str.command.ping,
 		ac: async (a,b) => {
+			var c
+			if(a.length > 1 && a[1].toLowerCase() == 'full') {
+				await db_findNUpdate(await DB('system'), a => ([a.a++, a])[1], {f: {t:'temp-ping'}, def:{t:'temp-ping', a: 0}})
+				c = 1
+			}
 			await fn_1(fn_0(b), {
 				color: col[7],
 				title: '⏱ Ping',
-				description: `Yes, I'm online. ${(new Date() - b.createdAt) + 'ms'} has taken to recive your message.`
+				description: `Yes, I'm online. ${(new Date() - b.createdAt) + 'ms'} has taken to recive your message${c ? ' using external database' : ''}.`
 			})
 		}
 	},
