@@ -202,14 +202,15 @@ ${"`"}ping, about, help${"`"}
 		des: str.command.ping,
 		ac: async (a,b) => {
 			var c
-			if(a.length > 1 && a[1].toLowerCase() == 'full') {
-				await db_findNUpdate(await DB('system'), a => ([a.a++, a])[1], {f: {t:'temp-ping'}, def:{t:'temp-ping', a: 0}})
+			if(a.length > 1 && (a[1].toLowerCase() == 'full' || a[1].toLowerCase() == 'max')) {
+				for(var c=0; c < (a[1].toLowerCase() == 'max' ? 4 : 1); c++)
+					await db_findNUpdate(await DB('system'), a => ([a.a++, a])[1], {f: {t:'temp-ping'}, def:{t:'temp-ping', a: 0}})
 				c = 1
 			}
 			await fn_1(fn_0(b), {
 				color: col[7],
 				title: '⏱ Ping',
-				description: `Yes, I'm online. ${(new Date() - b.createdAt) + 'ms'} has taken to recive your message${c ? ' using external database' : ''}.`
+				description: `Yes, I'm online. ${process.env.dev ? 'but I\'m in development mode. ': ''}${(new Date() - b.createdAt) + 'ms'} has taken to recive your message${c ? ' using external database' : ''}.`
 			})
 		}
 	},
@@ -262,6 +263,7 @@ ${"`"}ping, about, help${"`"}
 	set: {
 		des: str.command.set,
 		ac: async (a,b) => {
+			if(b.channel.type == 'dm') return
 			a = a.slice(1)
 			b = fn_0(b)
 			const e = async a => await fn_1(b, {
@@ -272,9 +274,9 @@ ${"`"}ping, about, help${"`"}
 			}, '❌')
 			if(a.length == 0) return await e()
 			a[0] = a[0].toLowerCase()
-			if(a[0] == 'welcome') {
+			if(a[0] == 'welcome' || a[0] == 'bye') {
 				if(a[1].toLowerCase() == 'no') {
-					await db_findNUpdate(await DB('guild'), a => ([delete a.wel, a])[1], {f: {t:'guild', g: b[5].id}, def: {t:'guild', g: b[5].id, wel: 0}})
+					await db_findNUpdate(await DB('guild'), a => ([delete a.wel, a])[1], {f: {t:'guild', g: b[5].id}, def: Object.assign({t:'guild', g: b[5].id}, a[0] == 'bye' ? ({bye: 0}) : ({wel: 0}))})
 					a[1] = 'no'
 				}
 				if(b[3].channels.size < 0)
@@ -284,11 +286,11 @@ ${"`"}ping, about, help${"`"}
 						description: 'You have to mention a channel',
 						timestamp: new Date()
 					}, '❌')
-				await db_findNUpdate(await DB('guild'), a => ([a.wel = Array.from(b[3].channels.keys())[0], a])[1], {f: {t:'guild', g: b[5].id}, def: {t:'guild', g: b[5].id}})
+				await db_findNUpdate(await DB('guild'), _a => ([_a[a[0] == 'bye' ? 'bye' : 'wel'] = Array.from(b[3].channels.keys())[0], _a])[1], {f: {t:'guild', g: b[5].id}, def: {t:'guild', g: b[5].id}})
 				await fn_1(b, {
 					color: col[6],
 					title: '👍 Success',
-					description: `The welcome meaages will ${a[1] == 'no' ? 'not received' : ('received in <#' +Array.from(b[3].channels.keys())[0] + '>')}`,
+					description: `The ${a[0] == 'bye' ? 'Good bye' : 'welcome'} meaages will ${a[1] == 'no' ? 'not received' : ('received in <#' +Array.from(b[3].channels.keys())[0] + '>')}`,
 					timestamp: new Date()
 				})
 			}
@@ -331,11 +333,30 @@ client.on('guildDelete', async a => {
 	acUp()
 	//cleanGuild()
 })
-client.on('guildMemberRemove', async a => acUp())
+client.on('guildMemberRemove', async a => {
+	acUp()
+	var b = await (await DB('guild')).findOne({t:'guild', g: a.guild.id})
+	if(!b && b.bye) return
+	var c = a.user.avatar ? a.user.avatarURL({size: 128}) : 'https://cdn.discordapp.com/embed/avatars/1.png?size=128'
+	await (await client.channels.fetch(b.bye)).send({
+		embed: {
+			color: col[2],
+			author: {
+				name: a.user.username,
+				icon_url: c
+			},
+			description: `Good bye <@${a.user.id}> from **${a.guild.name}**`,
+			thumbnail: {
+				url: c
+			},
+			timestamp: new Date()
+		}
+	})
+})
 client.on('guildMemberAdd', async a => {
 	acUp()
 	var b = await (await DB('guild')).findOne({t:'guild', g: a.guild.id})
-	if(!b) return
+	if(!b && b.wel) return
 	var c = a.user.avatar ? a.user.avatarURL({size: 128}) : 'https://cdn.discordapp.com/embed/avatars/1.png?size=128'
 	await (await client.channels.fetch(b.wel)).send({
 		embed: {
