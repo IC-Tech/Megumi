@@ -5,6 +5,7 @@ const MongoClient = require('mongodb').MongoClient
 const actions = require('./actions.js').actions
 const col = require('./colors.js').colors
 const str = require('./strings.json')
+const config = require('../config.json')
 
 var settings = {
 	logs: !process.env.dev
@@ -13,7 +14,6 @@ var cachedDb
 const MDB = async() => (cachedDb ? cachedDb : cachedDb = await (await MongoClient.connect(auth.mongodb, { useNewUrlParser: true, useUnifiedTopology: true })).db('202000032040'))
 const DB = async a => ((await MDB()).collection(a))
 const MDB_Check = a => a && a.result && a.result.ok == 1
-const admin = '473941394474401813'
 
 const fn_0 = a => {
 	a = [a, a.channel, a.author, a.mentions ]
@@ -48,7 +48,7 @@ const fn_4 = (a, b) => new Promise((_a, _b) => {
 	var d = _ => {
 		if(a.code != 50013) {
 			console.log(new Date(), a)
-			if(settings.logs) client.users.get(admin).send({
+			if(settings.logs) client.users.get(config.admin).send({
 				embed: {
 					color: 0xF04342,
 					title: '❌ Error',
@@ -141,7 +141,7 @@ ${"`"}ping, about, help${"`"}
 			if(a.length > 1) {
 				if(comm[a[1]]) c = comm[a[1]].des
 				else {
-					c = "<@651450006573678605> doesn't have command like that. try **M.help** to find commands."
+					c = `<@${config.megumi}> doesn't have command like that. try **M.help** to find commands.`
 					d = col[6]
 				}
 			}
@@ -218,7 +218,7 @@ ${"`"}ping, about, help${"`"}
 		des: str.command.system,
 		ac: async (a,b) => {
 			b = fn_0(b)
-			if(b[2].id != admin) {
+			if(b[2].id != config.admin) {
 				await fn_1(b, {
 					title: '🤖 ACCESS DENIED',
 					color: col[0],
@@ -318,7 +318,7 @@ Object.keys(actions).forEach(a=> {
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
     acUp()
-    //client.users.get(admin).send('IC-Bot is active')
+    //client.users.get(config.admin).send('IC-Bot is active')
 })
 /* future code function, no need for now
 client.on('messageReactionAdd', async (reaction, user) => {
