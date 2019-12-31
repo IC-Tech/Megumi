@@ -43,5 +43,8 @@ exports.actions = {
 	highfive: [ '✋ High five', '**_0_** highfives _3_', 'highfive', str.actions.highfive ],
 	hi: [ '✋ Hi', '**_0_** says hi _3_', 'wave', str.actions.hi ],
 	hey: [ '✋ Hey', '**_0_** says hey _3_', 'wave', str.actions.hey ],
-	nervous: [ '😨 Nervous', '**_0_** is nervous _3_', 'nervous', str.actions.nervous ]
+	nervous: [ '😨 Nervous', '**_0_** is nervous _3_', 'nervous', str.actions.nervous ],
+	catch: [ '😏 Catch', '**_0_** catching _3_', 'catch', str.common[0] ],
+	kick: [ '👠 kick', '**_0_** kicks _3_', 'kick', str.common[0] ],
+	cuddle: [ '😍 Cuddle', '**_0_** cuddles _3_', 'cuddle', str.common[0] ]
 }
