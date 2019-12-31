@@ -111,8 +111,28 @@ const getChannel = async (a, d, e) => {
 	}, {f: a, def: {a: 0}})
 	return c
 }
+const noDM = async a => {
+	if(a.channel.type == 'dm') {
+		await fn_1(fn_0(a), {
+			color: col[6],
+			author: {
+				name: 'Megumi Bot',
+				icon_url: 'https://i.imgur.com/jVrtzic.png',
+			},
+			description: `This command can only use in server channel.\n**Megumi-chan invite link: ** <https://discordapp.com/oauth2/authorize?&client_id=${config.app_id}&scope=bot&permissions=470150263> \n*I-I-Its not like I want to join your server or anything!* :flushed:\nBaka!!`,
+			thumbnail: 'https://i.imgur.com/jVrtzic.png',
+			/* -- emotional force invite --
+			image: {
+				url: 'https://media1.tenor.com/images/b7e132fd3f4e110ea54ef8aa8f4eebbe/tenor.gif?itemid=15650605'
+			},
+			*/
+			timestamp: new Date()
+		})
+		return 1
+	}
+}
 const sendActions = async (a, b, c) => {
-	if(b.channel.type == 'dm') return
+	if(await noDM(b)) return
 	b = fn_0(b)
 	var e = actions[c]
 	var d = (await (await DB('gifs')).findOne({name:e[2]})).d
@@ -155,7 +175,7 @@ ${"`"}ping, about, help${"`"}
 	avatar: {
 		des: str.command.avatar,
 		ac: async (a,b) => {
-			if(b.channel.type == 'dm') return
+			if(await noDM(b)) return
 			b = fn_0(b)
 			if(b[3].users.size > 0) b[2] = b[3].users.get(Array.from(b[3].users.keys())[0])
 			var c = b[2].avatar ? b[2].avatarURL({size: 2048}) : 'https://cdn.discordapp.com/embed/avatars/1.png'
@@ -263,7 +283,7 @@ ${"`"}ping, about, help${"`"}
 	set: {
 		des: str.command.set,
 		ac: async (a,b) => {
-			if(b.channel.type == 'dm') return
+			if(await noDM(b)) return
 			a = a.slice(1)
 			b = fn_0(b)
 			const e = async a => await fn_1(b, {
