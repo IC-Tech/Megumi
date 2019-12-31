@@ -34,7 +34,12 @@
 		"lick": "This command shows that you want to lick.",
 		"facepalm": "This command shows that you facepalming.",
 		"pout": "This command shows that you pouting.",
-		"greet": "[no description provided by <@473941394474401813>]"
+		"shrug": "This command shows that you are shrugs",
+		"clap": "This command shows that you are claps",
+		"highfive": "This command shows that you are give a high five",
+		"hi": "This command shows that you are saying Hi",
+		"hey": "This command shows that you are saying Hey",
+		"nervous": "This command shows that you are nervous"
 	},
 	"command": {
 		"help": "this command helps you to find commands and tells what they do.\n\n**example**\nM.help\nM.help smile",
@@ -42,6 +47,6 @@
 		"about": "this command show the information about bot.\n\n**example**\nM.about",
 		"ping": "this command help to check bot speed.\n\n**example**\nM.ping",
 		"system": "Please stay away from this command, this command belongs to bot developer.",
-		"set": "this command help you to change settings.\n\n**Welcome example**\nM.set welcome no\nM.set welcome #channel"
+		"set": "this command help you to change settings.\n\n**Welcome example**\nM.set welcome no\nM.set welcome #channel\n\n**Good bye example**\nM.set bye no\nM.set bye #channel"
 	}
 }
