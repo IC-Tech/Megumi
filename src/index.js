@@ -6,6 +6,7 @@ const actions = require('./actions.js').actions
 const col = require('./colors.js').colors
 const str = require('./strings.json')
 const config = require('../config.json')
+const gif = require('./gif.js').gif
 
 var settings = {
 	logs: !process.env.dev
@@ -150,6 +151,9 @@ ${"`"}avatar${"`"}
 
 **Roleplay**
 ${"`"}${Object.keys(actions).join(', ')}${"`"}
+
+**External**
+${"`"}gif${"`"}
 
 **Management**
 ${"`"}set${"`"}
@@ -316,6 +320,34 @@ ${"`"}ping, about, help${"`"}
 			}
 			else await e()
 		}
+	},
+	gif: {
+		des: str.command.gif,
+		ac: async (a, b) => {
+			if(await noDM(b)) return 
+			a = a.slice(1).join(' ')
+			if(a.length > 50 || a.length == 0) return await fn_1(fn_0(b), {
+				color: col[0],
+				title: '❌ INVALID REQUEST',
+				description: a.length == 0 ? 'Please provide a search keyword. try **m.help gif** for more information.' : 'search keyword is too long for search. it must be under 50 characters.',
+				timestamp: new Date()
+			}, '❌')
+			a = await gif({q:a})
+			if(a[0] == 2) return await fn_4(a[1], fn_0(b))
+			a = a[1]
+			var c
+			if(a.length > 0) c = `[${(a[0].title ? a[0].title : (decodeURIComponent(a[0].itemurl).replace('https://tenor.com/view/', '')))}](${a[0].itemurl})`
+			else c = `**Sorry!**, I can't find a gif. 😭`
+			await fn_1(fn_0(b), {
+				color: col[a.length > 0 ? 7 : 6],
+				title: '🖼 GIF',
+				description: c,
+				image: {
+					url: a.length > 0 ? a[0].media[0].gif.url : 'https://i.imgur.com/FG3ZCGa.gif'
+				},
+				footer: a.length > 0 ? ({text: 'Powered By Tenor'}) : undefined
+			})
+		}
 	}
 }
 const fn_6 = a=> ({
@@ -360,7 +392,7 @@ client.on('guildMemberRemove', async a => {
 	var c = a.user.avatar ? a.user.avatarURL({size: 128}) : 'https://cdn.discordapp.com/embed/avatars/1.png?size=128'
 	await (await client.channels.fetch(b.bye)).send({
 		embed: {
-			color: col[2],
+			color: col[6],
 			author: {
 				name: a.user.username,
 				icon_url: c

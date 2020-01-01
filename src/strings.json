@@ -47,6 +47,7 @@
 		"about": "this command show the information about bot.\n\n**example**\nM.about",
 		"ping": "this command help to check bot speed.\n\n**example**\nM.ping",
 		"system": "Please stay away from this command, this command belongs to bot developer.",
-		"set": "this command help you to change settings.\n\n**Welcome example**\nM.set welcome no\nM.set welcome #channel\n\n**Good bye example**\nM.set bye no\nM.set bye #channel"
+		"set": "this command help you to change settings.\n\n**Welcome example**\nM.set welcome no\nM.set welcome #channel\n\n**Good bye example**\nM.set bye no\nM.set bye #channel",
+		"gif": "this command help to find a gif images.\n\n**example**\nM.gif *rezero rem*"
 	}
 }
