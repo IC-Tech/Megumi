@@ -54,6 +54,7 @@
 		"gif": "this command help to find a gif images.\n\n**example**\nM.gif *rezero rem*",
 		"ban": "this command help to ban users from the server.\n\n**example**\nM.ban @user\nM.ban @user1 @user2\nM.ban @user *for posting nsfw*",
 		"kick": "this command help to kick users from the server.\n\n**example**\nM.kick @user\nM.kick @user1 @user2\nM.kick @user *for posting nsfw*",
-		"stats": "this command help to view Megumi's statistics.\n\n**example**\nM.stats"
+		"stats": "this command help to view Megumi's statistics.\n\n**example**\nM.stats",
+		"invite": "this command help to invite Megumi for a server.\n\n**example**\nM.invite"
 	}
 }

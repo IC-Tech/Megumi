@@ -442,6 +442,24 @@ ${"`"}ping, stats, about, help${"`"}
 	userkick: {
 		des: str.command.kick,
 		ac: async (a, b) => await ban_kick(a,b,2)
+	},
+	invite: {
+		des: str.command.invite,
+		ac: async (a, b) => {
+			await fn_1(fn_0(b), {
+				color: col[6],
+				author: {
+					name: 'Megumi Bot',
+					icon_url: config.icon,
+				},
+				description: `**Megumi-chan invite link: ** <https://discordapp.com/oauth2/authorize?&client_id=${config.app_id}&scope=bot&permissions=470150263> \n*I-I-Its not like I want to join your server or anything!* :flushed:\nBaka!!`,
+				thumbnail: config.icon,
+				image: {
+					url: 'https://media1.tenor.com/images/b7e132fd3f4e110ea54ef8aa8f4eebbe/tenor.gif?itemid=15650605'
+				},
+				timestamp: new Date()
+			})
+		}
 	}
 }
 const fn_6 = a=> ({
