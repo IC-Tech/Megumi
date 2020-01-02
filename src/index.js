@@ -1,3 +1,4 @@
+const os = require('os')
 const { Client, RichEmbed } = require('discord.js')
 const client = new Client({ partials: ['MESSAGE', 'CHANNEL'] })
 const auth = require('../auth.json')
@@ -7,6 +8,9 @@ const col = require('./colors.js').colors
 const str = require('./strings.json')
 const config = require('../config.json')
 const gif = require('./gif.js').gif
+const perm = require('./permissions.js')
+const error = require('./errors.js')
+const ver = require('../package.json').version
 
 var settings = {
 	logs: !process.env.dev
@@ -15,6 +19,14 @@ var cachedDb
 const MDB = async() => (cachedDb ? cachedDb : cachedDb = await (await MongoClient.connect(auth.mongodb, { useNewUrlParser: true, useUnifiedTopology: true })).db('202000032040'))
 const DB = async a => ((await MDB()).collection(a))
 const MDB_Check = a => a && a.result && a.result.ok == 1
+const dStr = a => {
+	var b = 0
+	while (a >= 1024) {
+		a = a / 1024
+		b++
+	}
+	return (parseInt(a * 10) / 10) + (['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'])[b]
+}
 
 const fn_0 = a => {
 	a = [a, a.channel, a.author, a.mentions ]
@@ -76,9 +88,9 @@ const fn_4 = (a, b) => new Promise((_a, _b) => {
 	}
 	var c = _ => b[1].send({
 		embed: {
-			name: '❌ IC-ERROR',
+			title: '❌ ERROR',
 			color: col[0],
-			description: 'Something went wrong, please try again later or contact the developer (type M.about).'
+			description: error.getString(a.code)
 		}
 	}).then(d).catch(d)
 	b[0].react('❌').then(c).catch(c)
@@ -131,6 +143,10 @@ const noDM = async a => {
 		})
 		return 1
 	}
+}
+const modComm = async (a,b) => {
+	if(await noDM(a)) return 1
+	if(b[5].ownerID != b[2].id) return 2
 }
 const sendActions = async (a, b, c) => {
 	if(await noDM(b)) return
@@ -345,8 +361,70 @@ ${"`"}ping, about, help${"`"}
 				image: {
 					url: a.length > 0 ? a[0].media[0].gif.url : 'https://i.imgur.com/FG3ZCGa.gif'
 				},
-				footer: a.length > 0 ? ({text: 'Powered By Tenor'}) : undefined
+				footer: a.length > 0 ? ({text: 'Powered By Tenor'}) : undefined,
+				timestamp: new Date()
 			})
+		}
+	},
+	stats: {
+		des: str.common[0],
+		ac: async (a, b) => {
+			await fn_1(fn_0(b), {
+			color: col[8],
+			author: {
+				name: `Megumi ${ver}`,
+				icon_url: config.icon
+			},
+			description:
+`${process.env.dev ? '***Megumi** is in developing computer, not in hosting server.*\n' : ''}**CPU**: ${os.arch()} ${os.cpus()[0].speed}MHz
+**OS**: ${os.platform()}
+**Uptime**: ${(a=> {
+	var b = (a,c) => {
+		var b = parseInt(a / c)
+		a = a - (b * c)
+		return [a, b]
+	}
+	var c = b(a, 60 * 60 * 24)
+	var d = b(c[0], 60 * 60)
+	var e = b(d[0], 60)
+	return `${c[1]} days, ${d[1]} hours, ${e[1]} minutes, ${e[0]} seconds`
+})(os.uptime())}
+**Memory**: ${dStr(os.totalmem() - os.freemem()) + '/' + dStr(os.totalmem())}
+`,
+				thumbnail: {
+					url: config.icon
+				}
+			})
+		}
+	},
+	ban: {
+		des: str.common[0],
+		ac: async (a, b) => {
+			if(await noDM(b)) return 
+			b = fn_0(b)
+			var c = Array.from(b[3].users.keys())
+			var e = async a => await fn_1(b, {
+				color: col[0],
+				title: '❌ INVALID REQUEST',
+				description: a,
+				timestamp: new Date()
+			}, '❌')
+			if(c.length < 1) return await e(`Please mention users for ban.`)
+			if(!b[5].member(b[2]).hasPermission(perm.BAN_MEMBERS)) return await e(`You don't have permissions to Ban users.`)
+			if(c.indexOf(b[2].id) >= 0) return await e(`You can't ban yourself.`)
+			var f = parseInt(a[a.length - 1])
+			if(a[a.length - 1] != f.toString()) f = NaN
+			else delete a[a.length - 1]
+			var d = ''
+			a.slice(1).forEach(a=> a && !(a.startsWith('<@') && a.endsWith('>')) ? (d += (a + ' ')) : 0)
+			d = d.substr(0, d.length - 1)
+			a = {}
+			if(d) a.reason = d
+			if(!isNaN(f)) a.days = f
+			await Promise.all(c.map(c => new Promise(async (_a, _b) => {
+				try {	_a(await b[5].member(c).ban(a)) }
+				catch(e) { await fn_4(e, b) }
+			})))
 		}
 	}
 }
