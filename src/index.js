@@ -94,7 +94,7 @@ const fn_5 = (a, b, c) => {
 	d.forEach((_a, _b) => a.match((_b = [_b, 0])[1] = new RegExp('_' + _b[0] + '_', 'g')) ? _a(_b[1]) : 0)
 	return a
 }
-const acUp = a => client.user.setActivity(`M.help • Bot: ${process.env.dev ? 'developing' : 'online'} • servers: ${client.guilds.size} • users: ${client.users.size}`, { type: 'WATCHING'})
+const acUp = a => client.user.setActivity(`M.help • Bot: ${process.env.dev ? 'Developing' : 'Online'} • Servers: ${client.guilds.size} • Users: ${client.users.size}`, { type: 'WATCHING'})
 const db_findNUpdate = async (a, b, op) => {
 	var c = await a.findOne(op.f)
 	var d = b((!op.noFill || op.def) && !c ? (op.def ? op.def : {}) : c)
@@ -118,10 +118,10 @@ const noDM = async a => {
 			color: col[6],
 			author: {
 				name: 'Megumi Bot',
-				icon_url: 'https://i.imgur.com/jVrtzic.png',
+				icon_url: config.icon,
 			},
 			description: `This command can only use in server channel.\n**Megumi-chan invite link: ** <https://discordapp.com/oauth2/authorize?&client_id=${config.app_id}&scope=bot&permissions=470150263> \n*I-I-Its not like I want to join your server or anything!* :flushed:\nBaka!!`,
-			thumbnail: 'https://i.imgur.com/jVrtzic.png',
+			thumbnail: config.icon,
 			/* -- emotional force invite --
 			image: {
 				url: 'https://media1.tenor.com/images/b7e132fd3f4e110ea54ef8aa8f4eebbe/tenor.gif?itemid=15650605'
@@ -204,11 +204,11 @@ ${"`"}ping, about, help${"`"}
 				url: 'https://ic-tech.now.sh',
 				author: {
 					name: 'Megumi Bot',
-					icon_url: 'https://i.imgur.com/jVrtzic.png',
+					icon_url: config.icon,
 					url: 'https://ic-tech.now.sh'
 				},
 				description: 'Megumi is first bot created by Imesh Chamara\nIt is still on development.\n\nThis bot is open-source and totally free.',
-				thumbnail: 'https://i.imgur.com/jVrtzic.png',
+				thumbnail: config.icon,
 				fields: [
 					{
 						name: 'Copyright © Imesh Chamara 2019',
@@ -426,8 +426,9 @@ client.on('guildMemberAdd', async a => {
 	})
 })
 client.on('message', async msg => {
+	if(msg.author.bot) return
 	var b = msg.content.toLowerCase()
-	if(!['m.', 'ic.', 'i!', 'ic!'].some(a => b.startsWith(a))) return
+	if(!['m.'/*, 'ic.', 'i!', 'ic!'*/].some(a => b.startsWith(a))) return
 	var a = msg.content.split(' ')
 	if(a[a.length - 1] == '') a.pop()
 	b = a[0].indexOf('.')
