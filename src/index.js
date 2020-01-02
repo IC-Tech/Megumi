@@ -38,10 +38,11 @@ const fn_0 = a => {
 }
 const fn_1 = async (b, a, c = '✅') => {
 	try {
-		await b[1].send({
+		var d = await b[1].send({
 			embed: a
 		})
 		await b[0].react(c)
+		return d
 	}
 	catch (a) {
 		await fn_4(a, b)
@@ -155,6 +156,41 @@ const sendActions = async (a, b, c) => {
 	var d = (await (await DB('gifs')).findOne({name:e[2]})).d
 	await fn_3(b, fn_5(e[0], b, a), fn_5(e[1], b, a), d[await getChannel({g: b[5].id, c: b[1].id, n: c}, d.length, b[0].channel.type)])
 }
+const ban_kick = async (a,b, _) => {
+	if(await noDM(b)) return 
+	b = fn_0(b)
+	var c = Array.from(b[3].users.keys())
+	var e = async a => await fn_1(b, {
+		color: col[0],
+		title: '❌ INVALID REQUEST',
+		description: a,
+		timestamp: new Date()
+	}, '❌')
+	if(c.length < 1) return await e(`Please mention users for ${_ == 1 ? 'ban' : 'kick'}.`)
+	if(!b[5].member(b[2]).hasPermission(_ == 1 ? perm.BAN_MEMBERS : perm.KICK_MEMBERS)) return await e(`You don't have permissions to ${_ == 1 ? 'Ban' : 'Kick'} users.`)
+	if(c.indexOf(b[2].id) >= 0) return await e(`You can't ${_ == 1 ? 'ban' : 'kick'} yourself.`)
+	//var f = parseInt(a[a.length - 1])
+	//if(_ == 1 || a[a.length - 1] != f.toString()) f = NaN
+	//else delete a[a.length - 1]
+	var d = ''
+	a.slice(1).forEach(a=> a && !(a.startsWith('<@') && a.endsWith('>')) ? (d += (a + ' ')) : 0)
+	d = d.substr(0, d.length - 1)
+	a = {}
+	if(d) a.reason = d
+	//if(!isNaN(f)) a.days = f
+	await Promise.all(c.map(c => new Promise(async (_a, _b) => {
+		try {
+			if(_ == 1) _a(await b[5].member(c).ban(a))
+			else _a(await b[5].member(c).kick(a.reason))
+		}
+		catch(e) { await fn_4(e, b) }
+	})))
+	await fn_1(b, {
+		color: col[6],
+		title: _ == 1 ? `👿 Ban users` : `😡 Kick users`,
+		description: `${c.map(a=>`<@${a}>`).join(', ')} has been ${_ == 1 ? 'baned' : 'kicked'} by **${b[4]}**.${d ? `\n**reason**: *${d}*` : ''}`
+	})
+}
 const comm = {
 	help: {
 		des: str.command.help,
@@ -172,10 +208,10 @@ ${"`"}${Object.keys(actions).join(', ')}${"`"}
 ${"`"}gif${"`"}
 
 **Management**
-${"`"}set${"`"}
+${"`"}set, userkick, ban${"`"}
 
 **Information**
-${"`"}ping, about, help${"`"}
+${"`"}ping, stats, about, help${"`"}
 `
 			var d = col[3]
 			if(a.length > 1) {
@@ -376,7 +412,7 @@ ${"`"}ping, about, help${"`"}
 				icon_url: config.icon
 			},
 			description:
-`${process.env.dev ? '***Megumi** is in developing computer, not in hosting server.*\n' : ''}**CPU**: ${os.arch()} ${os.cpus()[0].speed}MHz
+`${process.env.dev ? '_**Megumi** is in developing computer, not in hosting server._\n' : ''}**CPU**: ${os.arch()} ${os.cpus()[0].speed}MHz
 **OS**: ${os.platform()}
 **Uptime**: ${(a=> {
 	var b = (a,c) => {
@@ -390,6 +426,8 @@ ${"`"}ping, about, help${"`"}
 	return `${c[1]} days, ${d[1]} hours, ${e[1]} minutes, ${e[0]} seconds`
 })(os.uptime())}
 **Memory**: ${dStr(os.totalmem() - os.freemem()) + '/' + dStr(os.totalmem())}
+**Servers**: ${client.guilds.size}
+**Users**: ${client.users.size}
 `,
 				thumbnail: {
 					url: config.icon
@@ -398,34 +436,12 @@ ${"`"}ping, about, help${"`"}
 		}
 	},
 	ban: {
-		des: str.common[0],
-		ac: async (a, b) => {
-			if(await noDM(b)) return 
-			b = fn_0(b)
-			var c = Array.from(b[3].users.keys())
-			var e = async a => await fn_1(b, {
-				color: col[0],
-				title: '❌ INVALID REQUEST',
-				description: a,
-				timestamp: new Date()
-			}, '❌')
-			if(c.length < 1) return await e(`Please mention users for ban.`)
-			if(!b[5].member(b[2]).hasPermission(perm.BAN_MEMBERS)) return await e(`You don't have permissions to Ban users.`)
-			if(c.indexOf(b[2].id) >= 0) return await e(`You can't ban yourself.`)
-			var f = parseInt(a[a.length - 1])
-			if(a[a.length - 1] != f.toString()) f = NaN
-			else delete a[a.length - 1]
-			var d = ''
-			a.slice(1).forEach(a=> a && !(a.startsWith('<@') && a.endsWith('>')) ? (d += (a + ' ')) : 0)
-			d = d.substr(0, d.length - 1)
-			a = {}
-			if(d) a.reason = d
-			if(!isNaN(f)) a.days = f
-			await Promise.all(c.map(c => new Promise(async (_a, _b) => {
-				try {	_a(await b[5].member(c).ban(a)) }
-				catch(e) { await fn_4(e, b) }
-			})))
-		}
+		des: str.command.ban,
+		ac: async (a, b) => await ban_kick(a,b,1)
+	},
+	userkick: {
+		des: str.command.kick,
+		ac: async (a, b) => await ban_kick(a,b,2)
 	}
 }
 const fn_6 = a=> ({
@@ -443,7 +459,8 @@ Object.keys(actions).forEach(a=> {
 })
 ;([
 	['sys', 'system'],
-	['info', 'about']
+	['info', 'about'],
+	['statistics', 'stats']
 ]).forEach(a=> comm[a[0]] = fn_6(a[1]))
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
