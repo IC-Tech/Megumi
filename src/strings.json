@@ -34,12 +34,15 @@
 		"lick": "This command shows that you want to lick.",
 		"facepalm": "This command shows that you facepalming.",
 		"pout": "This command shows that you pouting.",
-		"shrug": "This command shows that you are shrugs",
-		"clap": "This command shows that you are claps",
-		"highfive": "This command shows that you are give a high five",
-		"hi": "This command shows that you are saying Hi",
-		"hey": "This command shows that you are saying Hey",
-		"nervous": "This command shows that you are nervous"
+		"shrug": "This command shows that you are shrugs.",
+		"clap": "This command shows that you are claps.",
+		"highfive": "This command shows that you are give a high five.",
+		"hi": "This command shows that you are saying Hi.",
+		"hey": "This command shows that you are saying Hey.",
+		"nervous": "This command shows that you are nervous.",
+		"catch": "This command shows that you are catch someone.",
+		"kick": "This command shows that you are kick someone",
+		"cuddle": "This command shows that you are cuddle someone"
 	},
 	"command": {
 		"help": "this command helps you to find commands and tells what they do.\n\n**example**\nM.help\nM.help smile",
