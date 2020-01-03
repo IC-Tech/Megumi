@@ -41,7 +41,7 @@ const fn_1 = async (b, a, c = '✅') => {
 		var d = await b[1].send({
 			embed: a
 		})
-		await b[0].react(c)
+		if(c) await b[0].react(c)
 		return d
 	}
 	catch (a) {
@@ -178,17 +178,34 @@ const ban_kick = async (a,b, _) => {
 	a = {}
 	if(d) a.reason = d
 	//if(!isNaN(f)) a.days = f
-	await Promise.all(c.map(c => new Promise(async (_a, _b) => {
-		try {
-			if(_ == 1) _a(await b[5].member(c).ban(a))
-			else _a(await b[5].member(c).kick(a.reason))
-		}
-		catch(e) { await fn_4(e, b) }
-	})))
-	await fn_1(b, {
-		color: col[6],
-		title: _ == 1 ? `👿 Ban users` : `😡 Kick users`,
-		description: `${c.map(a=>`<@${a}>`).join(', ')} has been ${_ == 1 ? 'baned' : 'kicked'} by **${b[4]}**.${d ? `\n**reason**: *${d}*` : ''}`
+	var g = (await fn_1(b, {
+		color: col[7],
+		title: _ == 1 ? `😞 Ban users` : `😞 Kick users`,
+		description: `**${b[4]}** you are going to kick, ${c.map(a=>`<@${a}>`).join(', ')}${d ? `\n**reason**: *${d}*` : ''}\nclick ✅ for confirm.\nclick ❌ for cancel.`,
+		timestamp: new Date()
+	}))
+	g.react('✅')
+	g.react('❌')
+	var rc = g.createReactionCollector((r, u) => u.id == b[2].id && (r.emoji.name == '✅' || r.emoji.name == '❌'), { time: config.react_timeout })
+	rc.on('collect', a => rc.stop())
+	rc.on('end', async mr => {
+		console.log(mr)
+		if(mr.size < 1) return
+		(mr = mr.get(mr.keys().next().value)).message.delete()
+		var en = mr.emoji.name
+		if(en == '✅') await Promise.all(c.map(c => new Promise(async (_a, _b) => {
+			try {
+				if(_ == 1) _a(await b[5].member(c).ban(a))
+				else _a(await b[5].member(c).kick(a.reason))
+			}
+			catch(e) { await fn_4(e, b) }
+		})))
+		await fn_1(fn_0(mr.message), {
+			color: en == '❌' ? col[2] : col[6],
+			title: (en == '❌' ? '😅' : (_ == 1 ? '👿' : '😡')) + (_ == 1 ? ` Ban users` : ` Kick users`),
+			description: en == '❌' ? `${c.map(a=>`<@${a}>`).join(', ')} has not been ${_ == 1 ? 'baned' : 'kicked'}` : `${c.map(a=>`<@${a}>`).join(', ')} has been ${_ == 1 ? 'baned' : 'kicked'} by **${b[4]}**.${d ? `\n**reason**: *${d}*` : ''}`,
+			timestamp: new Date()
+		}, null)
 	})
 }
 const comm = {
@@ -264,7 +281,7 @@ ${"`"}ping, stats, about, help${"`"}
 				fields: [
 					{
 						name: 'Copyright © Imesh Chamara 2019',
-						value: '**Discord:** ImeshChamara#1418\n**Website:** https://ic-tech.now.sh'
+						value: '**Discord:** ImeshChamara#1418\n**Website:** <https://ic-tech.now.sh>\n**Support Server:** <https://discord.gg/CAmERp2>'
 					}
 				],
 				image: {
