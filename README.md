@@ -1,2 +1,2 @@
-# 202000032040
- 
+# Megumi-bot
+https://discord.gg/8yGtdxd
