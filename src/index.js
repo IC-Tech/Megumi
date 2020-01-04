@@ -118,11 +118,13 @@ const db_findNUpdate = async (a, b, op) => {
 	else if(!MDB_Check(await a.updateOne(op.f, {$set: d}, {}))) throw new Error('db_findNUpdate faild 1')
 }
 const getChannel = async (a, d, e) => {
-	var b = await DB('channel')
 	var c
-	await db_findNUpdate(b, a => {
-		return (a = [c = (a.a = ((a.a++) >= --d ? 0 : a.a)), a.t = e, a])[2]
-	}, {f: a, def: {a: 0}})
+	await db_findNUpdate(await DB('guild'), res => {
+		if(!res.channel) res.channel = {}
+		if(!res.channel[a.c]) res.channel[a.c] = {}
+		if(!res.channel[a.c][a.n]) res.channel[a.c][a.n] = { val: 0 }
+		return (res = [c = (res.channel[a.c][a.n].val = ((res.channel[a.c][a.n].val++) >= --d ? 0 : res.channel[a.c][a.n].val)), res])[1]
+	}, {f: {t:'guild', g: a.g}, def: {t:'guild', g: a.g}})
 	return c
 }
 const noDM = async a => {
@@ -189,7 +191,6 @@ const ban_kick = async (a,b, _) => {
 	var rc = g.createReactionCollector((r, u) => u.id == b[2].id && (r.emoji.name == '✅' || r.emoji.name == '❌'), { time: config.react_timeout })
 	rc.on('collect', a => rc.stop())
 	rc.on('end', async mr => {
-		console.log(mr)
 		if(mr.size < 1) return
 		(mr = mr.get(mr.keys().next().value)).message.delete()
 		var en = mr.emoji.name
@@ -510,14 +511,17 @@ client.on('messageReactionRemove', async (reaction, user) => {
 	console.log('Reaction removed; current count:', reaction.count)
 })
 */
-client.on('guildCreate', async a => acUp())
+client.on('guildCreate', async a => {
+	acUp()
+	await db_findNUpdate(await DB('guild'), a=>([a.created = new Date('12/08/2019'), a])[1], {f: {t:'guild', g:a.id}, def: {t:'guild', g:a.id}})
+})
 client.on('guildDelete', async a => {
 	acUp()
-	//cleanGuild()
+	await (await DB('guild')).deleteOne({t:'guild', g: a.id})
 })
 client.on('guildMemberRemove', async a => {
 	acUp()
-	var b = await (await DB('guild')).findOne({t:'guild', g: a.guild.id})
+	var b = await (await DB('guild')).findOne({t:'guild', g: a.id})
 	if(!b && b.bye) return
 	var c = a.user.avatar ? a.user.avatarURL({size: 128}) : 'https://cdn.discordapp.com/embed/avatars/1.png?size=128'
 	await (await client.channels.fetch(b.bye)).send({
