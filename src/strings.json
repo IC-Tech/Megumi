@@ -41,8 +41,9 @@
 		"hey": "This command shows that you are saying Hey.",
 		"nervous": "This command shows that you are nervous.",
 		"catch": "This command shows that you are catch someone.",
-		"kick": "This command shows that you are kick someone",
-		"cuddle": "This command shows that you are cuddle someone"
+		"kick": "This command shows that you are kick someone.",
+		"cuddle": "This command shows that you are cuddle someone.",
+		"angry": "This command shows that you are angry now."
 	},
 	"command": {
 		"help": "this command helps you to find commands and tells what they do.\n\n**example**\nM.help\nM.help smile",

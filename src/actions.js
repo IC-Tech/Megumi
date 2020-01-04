@@ -46,5 +46,6 @@ exports.actions = {
 	nervous: [ '😨 Nervous', '**_0_** is nervous _3_', 'nervous', str.actions.nervous ],
 	catch: [ '😏 Catch', '**_0_** catching _3_', 'catch', str.actions.catch ],
 	kick: [ '👠 kick', '**_0_** kicks _3_', 'kick', str.actions.kick ],
-	cuddle: [ '😍 Cuddle', '**_0_** cuddles _3_', 'cuddle', str.actions.cuddle ]
+	cuddle: [ '😍 Cuddle', '**_0_** cuddles _3_', 'cuddle', str.actions.cuddle ],
+	angry: [ '😤 Angry', '**_0_** is angry _3_', 'angry', str.actions.angry ]
 }
