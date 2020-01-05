@@ -32,7 +32,7 @@
 		"glare": "This command shows that you are glare.",
 		"kiss": "This command shows that you want to kiss.",
 		"lick": "This command shows that you want to lick.",
-		"facepalm": "This command shows that you facepalming.",
+		"facepalm": "This command shows that you face-palming.",
 		"pout": "This command shows that you pouting.",
 		"shrug": "This command shows that you are shrugs.",
 		"clap": "This command shows that you are claps.",
@@ -43,7 +43,9 @@
 		"catch": "This command shows that you are catch someone.",
 		"kick": "This command shows that you are kick someone.",
 		"cuddle": "This command shows that you are cuddle someone.",
-		"angry": "This command shows that you are angry now."
+		"angry": "This command shows that you are angry now.",
+		"nosebleed": "This command shows that you are nose-bleeding now.",
+		"blush": "This command shows that you are blushing now."
 	},
 	"command": {
 		"help": "this command helps you to find commands and tells what they do.\n\n**example**\nM.help\nM.help smile",
