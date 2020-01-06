@@ -16,7 +16,7 @@ var settings = {
 	logs: !process.env.dev
 }
 var cachedDb
-const MDB = async() => (cachedDb ? cachedDb : cachedDb = await (await MongoClient.connect(auth.mongodb, { useNewUrlParser: true, useUnifiedTopology: true })).db('202000032040'))
+const MDB = async() => (cachedDb ? cachedDb : cachedDb = await (await MongoClient.connect(auth.mongodb, { useNewUrlParser: true, useUnifiedTopology: true })).db(config.DB))
 const DB = async a => ((await MDB()).collection(a))
 const MDB_Check = a => a && a.result && a.result.ok == 1
 const dStr = a => {
@@ -155,7 +155,7 @@ const sendActions = async (a, b, c) => {
 	if(await noDM(b)) return
 	b = fn_0(b)
 	var e = actions[c]
-	var d = (await (await DB('gifs')).findOne({name:e[2]})).d
+	var d = (await (await DB('gif')).findOne({name:e[2]})).d
 	await fn_3(b, fn_5(e[0], b, a), fn_5(e[1], b, a), d[await getChannel({g: b[5].id, c: b[1].id, n: c}, d.length, b[0].channel.type)])
 }
 const ban_kick = async (a,b, _) => {
@@ -271,22 +271,24 @@ ${"`"}ping, stats, about, help${"`"}
 			await fn_1(fn_0(b), {
 				color: 0x0099ff,
 				title: 'About Megumi Bot',
-				url: 'https://ic-tech.now.sh',
 				author: {
 					name: 'Megumi Bot',
-					icon_url: config.icon,
-					url: 'https://ic-tech.now.sh'
+					icon_url: config.icon
 				},
 				description: 'Megumi is first bot created by Imesh Chamara\nIt is still on development.\n\nThis bot is open-source and totally free.',
 				thumbnail: config.icon,
 				fields: [
 					{
-						name: 'Copyright © Imesh Chamara 2019',
-						value: '**Discord:** ImeshChamara#1418\n**Website:** <https://ic-tech.now.sh>\n**Support Server:** <https://discord.gg/CAmERp2>'
+						name: 'Project by **Imesh Chamara**',
+						value: '**Discord:** ImeshChamara#1418\n**Support Server:** <https://discord.gg/CAmERp2>**\nDeveloper Contact**: <https://ic-tech.now.sh>'
 					}
 				],
 				image: {
 					url: 'https://i.imgur.com/7BM6r9H.png'
+				},
+				footer: {
+					text: 'ImeshChamara#1418',
+					icon_url: 'https://i.imgur.com/TCmnCFZ.png'
 				},
 				timestamp: new Date()
 			})
@@ -295,16 +297,20 @@ ${"`"}ping, stats, about, help${"`"}
 	ping: {
 		des: str.command.ping,
 		ac: async (a,b) => {
-			var c
-			if(a.length > 1 && (a[1].toLowerCase() == 'full' || a[1].toLowerCase() == 'max')) {
-				for(var c=0; c < (a[1].toLowerCase() == 'max' ? 4 : 1); c++)
+			var c, d = `${(new Date() - b.createdAt) + 'ms'} has taken to recive your message.`, e = new Date()
+			if(a.length > 1 && ((a[1] = a[1].toLowerCase()) == 'full' || a[1] == 'max')) {
+				for(var c=0; c < (a[1] == 'max' ? 4 : 1); c++)
 					await db_findNUpdate(await DB('system'), a => ([a.a++, a])[1], {f: {t:'temp-ping'}, def:{t:'temp-ping', a: 0}})
-				c = 1
+				var f = new Date()
+				d = `**Message: **${e - b.createdAt}ms\n**DB: **${f - e}ms\n`
+				if(a[1] == 'max') d += `**DB Avg: **${(f - e) / 4}ms\n`
+				d += `**All: **${f - b.createdAt}ms`
+			c = 1
 			}
 			await fn_1(fn_0(b), {
 				color: col[7],
 				title: '⏱ Ping',
-				description: `Yes, I'm online. ${process.env.dev ? 'but I\'m in development mode. ': ''}${(new Date() - b.createdAt) + 'ms'} has taken to recive your message${c ? ' using external database' : ''}.`
+				description: `Yes, I'm online. ${process.env.dev ? `but I\'m in development mode.${!c ? ' ' : '\n'}`: ''}${d}`
 			})
 		}
 	},
@@ -322,14 +328,14 @@ ${"`"}ping, stats, about, help${"`"}
 			}
 			var done
 			if(a.length >= 5 && a[1] == 'add' && a[2] == 'image') {
-				await db_findNUpdate(await DB('gifs'), b => {
+				await db_findNUpdate(await DB('gif'), b => {
 					a.slice(3).forEach(a => a.startsWith('https://') && !b.d.some(b => b == a) ? b.d.push(a) : 0)
 					return b
 				}, {f: {name: a[3]}, def: {name: a[3], d: []}})
 				done = 1
 			}
 			else if(a.length >= 5 && a[1] == 'rem' && a[2] == 'image') {
-				await db_findNUpdate(await DB('gifs'), b => {
+				await db_findNUpdate(await DB('gif'), b => {
 					var c = []
 					b.d.forEach(b => b == a[4] ? 0 : c.push(b))
 					if(c.length == b.d.length) return
@@ -341,7 +347,7 @@ ${"`"}ping, stats, about, help${"`"}
 			else if(a.length >= 4 && a[1] == 'len' && a[2] == 'image') {
 				done = ['']
 				await Promise.all(a.slice(3).map(a => new Promise(async d => {
-					await db_findNUpdate(await DB('gifs'), b => {
+					await db_findNUpdate(await DB('gif'), b => {
 						done[0] += `${a} command is ${b.d.length} long\n`
 					}, {f: {name: a}, def: {name: a, d: []}})
 					d()
@@ -431,6 +437,7 @@ ${"`"}ping, stats, about, help${"`"}
 			},
 			description:
 `${process.env.dev ? '_**Megumi** is in developing computer, not in hosting server._\n' : ''}**CPU**: ${os.arch()} ${os.cpus()[0].speed}MHz
+**CPU Core**: ${os.cpus().length}
 **OS**: ${os.platform()}
 **Uptime**: ${(a=> {
 	var b = (a,c) => {
@@ -446,6 +453,7 @@ ${"`"}ping, stats, about, help${"`"}
 **Memory**: ${dStr(os.totalmem() - os.freemem()) + '/' + dStr(os.totalmem())}
 **Servers**: ${client.guilds.size}
 **Users**: ${client.users.size}
+**Commands**: ${Object.keys(comm).length}+
 `,
 				thumbnail: {
 					url: config.icon
@@ -561,8 +569,9 @@ client.on('guildMemberAdd', async a => {
 })
 client.on('message', async msg => {
 	if(msg.author.bot) return
+	if(process.env.dev && msg.author.id != config.admin) return
 	var b = msg.content.toLowerCase()
-	if(!['m.'/*, 'ic.', 'i!', 'ic!'*/].some(a => b.startsWith(a))) return
+	if(![process.env.dev ? 'md.' : 'm.'/*, 'ic.', 'i!', 'ic!'*/].some(a => b.startsWith(a))) return
 	var a = msg.content.split(' ')
 	if(a[a.length - 1] == '') a.pop()
 	b = a[0].indexOf('.')

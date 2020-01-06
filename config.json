@@ -4,5 +4,6 @@
 	"megumi": "651450006573678605",
 	"image_filter": "medium",
 	"icon": "https://i.imgur.com/EjVhjoa.png",
-	"react_timout": 300000
+	"react_timout": 300000,
+	"DB": "Megumi"
 }
