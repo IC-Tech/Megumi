@@ -210,6 +210,27 @@ const ban_kick = async (a,b, _) => {
 		}, null)
 	})
 }
+const welcome_bye = async (a , b, c) => {
+	if(await noDM(b)) return 
+	b = fn_0(b)
+	var e = async a => await fn_1(b, {
+		color: col[0],
+		title: '❌ INVALID REQUEST',
+		description: a,
+		timestamp: new Date()
+	}, '❌')
+	if(b[2].id != b[5].ownerID) return await e(`**${b[4]}**, you don't have permissions for this action.`)
+	if(a.length < 2 || !((a[1] = a[1].toLowerCase()) == 'no' || b[3].channels.size > 0)) return await e(`You have to mention a channel to get ${c == 1 ? 'goodbye': 'welcome'} messages or use no to stop ${c == 1 ? 'goodbye': 'welcome'} messages.\nuse **M.help ${c == 1 ? 'bye': 'welcome'}** for more info.`)
+	var e = null
+	if(a[1] != 'no') e = b[3].channels.keys().next().value
+	await db_findNUpdate(await DB('guild'), a => ([a[c == 1 ? 'bye' : 'wel'] = e, a])[1], {f:{t:'guild', g: b[5].id}, def: Object.assign({t:'guild', g: b[5].id}, c == 1 ? ({bye: 1}) : ({wel: 1}))})
+	await fn_1(b, {
+		color: col[7],
+		title: `🤗 ${c == 1 ? 'Goodbye': 'Welcome'}`,
+		description: `Megumi will ${e ? '' : 'not'} send ${c == 1 ? 'goodbye': 'welcome'} messages${e ? ` in <#${e}>`: ''}.`,
+		timestamp: new Date()
+	})
+}
 const comm = {
 	help: {
 		des: str.command.help,
@@ -227,29 +248,32 @@ ${"`"}${Object.keys(actions).join(', ')}${"`"}
 ${"`"}gif${"`"}
 
 **Management**
-${"`"}set, userkick, ban${"`"}
+${"`"}userkick, ban, welcome, goodbye${"`"}
 
 **Information**
 ${"`"}ping, stats, about, help${"`"}
 `
+			var e = 1
 			var d = col[3]
 			if(a.length > 1) {
-				if(comm[a[1]]) c = comm[a[1]].des
+				e = 2
+				if(comm[(a[1] = a[1].toLowerCase())]) c = comm[a[1]].des
 				else {
 					c = `<@${config.megumi}> doesn't have command like that. try **M.help** to find commands.`
 					d = col[6]
+					e = 1
 				}
 			}
-			await fn_1(fn_0(b), {
+			await fn_1(fn_0(b), Object.assign({
 				color: d,
 				title: `❔ Help${a.length > 1 ? ` » ${a[1]}` : ''}`,
 				description: c,
+				timestamp: new Date()
+			}, e == 1 ? ({
 				footer: {
 					text: 'Bot by ImeshChamara#1418',
 					icon_url: 'https://i.imgur.com/TCmnCFZ.png'
-				},
-				timestamp: new Date()
-			})
+			}}) : ({})))
 		}
 	},
 	avatar: {
@@ -381,43 +405,6 @@ Have a fun with Megumi (*It's not like I want you to have fun with Megumi-chan.*
 			}, '✅')
 		}
 	},
-	set: {
-		des: str.command.set,
-		ac: async (a,b) => {
-			if(await noDM(b)) return
-			a = a.slice(1)
-			b = fn_0(b)
-			const e = async a => await fn_1(b, {
-				color: col[0],
-				title: '❌ INVALID ARGUMENTS',
-				description: 'specific command not found, try **M.help set** for more info.',
-				timestamp: new Date()
-			}, '❌')
-			if(a.length == 0) return await e()
-			a[0] = a[0].toLowerCase()
-			if(a[0] == 'welcome' || a[0] == 'bye') {
-				if(a[1].toLowerCase() == 'no') {
-					await db_findNUpdate(await DB('guild'), a => ([delete a.wel, a])[1], {f: {t:'guild', g: b[5].id}, def: Object.assign({t:'guild', g: b[5].id}, a[0] == 'bye' ? ({bye: 0}) : ({wel: 0}))})
-					a[1] = 'no'
-				}
-				if(b[3].channels.size < 0)
-					return await fn_1(b, {
-						color: col[0],
-						title: '❌ INVALID ARGUMENTS',
-						description: 'You have to mention a channel',
-						timestamp: new Date()
-					}, '❌')
-				await db_findNUpdate(await DB('guild'), _a => ([_a[a[0] == 'bye' ? 'bye' : 'wel'] = Array.from(b[3].channels.keys())[0], _a])[1], {f: {t:'guild', g: b[5].id}, def: {t:'guild', g: b[5].id}})
-				await fn_1(b, {
-					color: col[6],
-					title: '👍 Success',
-					description: `The ${a[0] == 'bye' ? 'Good bye' : 'welcome'} meaages will ${a[1] == 'no' ? 'not received' : ('received in <#' +Array.from(b[3].channels.keys())[0] + '>')}`,
-					timestamp: new Date()
-				})
-			}
-			else await e()
-		}
-	},
 	gif: {
 		des: str.command.gif,
 		ac: async (a, b) => {
@@ -508,6 +495,14 @@ Have a fun with Megumi (*It's not like I want you to have fun with Megumi-chan.*
 				timestamp: new Date()
 			})
 		}
+	},
+	welcome: {
+		des: str.command.welcome,
+		ac: async (a, b) => await welcome_bye(a,b,0)
+	},
+	goodbye: {
+		des: str.command.goodbye,
+		ac: async (a, b) => await welcome_bye(a,b,1)
 	}
 }
 const fn_6 = a=> ({
@@ -542,10 +537,12 @@ client.on('messageReactionRemove', async (reaction, user) => {
 })
 */
 client.on('guildCreate', async a => {
+	if(process.env.dev) return
 	acUp()
 	await db_findNUpdate(await DB('guild'), a=>([a.created = new Date('12/08/2019'), a])[1], {f: {t:'guild', g:a.id}, def: {t:'guild', g:a.id}})
 })
 client.on('guildDelete', async a => {
+	if(process.env.dev) return
 	acUp()
 	await (await DB('guild')).deleteOne({t:'guild', g: a.id})
 })
