@@ -245,7 +245,7 @@ ${"`"}ping, stats, about, help${"`"}
 				title: `❔ Help${a.length > 1 ? ` » ${a[1]}` : ''}`,
 				description: c,
 				footer: {
-					text: 'ImeshChamara#1418',
+					text: 'Bot by ImeshChamara#1418',
 					icon_url: 'https://i.imgur.com/TCmnCFZ.png'
 				},
 				timestamp: new Date()
@@ -282,7 +282,18 @@ ${"`"}ping, stats, about, help${"`"}
 					name: 'Megumi Bot',
 					icon_url: config.icon
 				},
-				description: 'Megumi is first bot created by Imesh Chamara\nIt is still on development.\n\nThis bot is open-source and totally free.',
+				description: 
+`Megumi is first bot created by Imesh Chamara. Megumi bot is open-source and totally free. She specially made for Roleplay but she also have other commands. and she contains more than ${Object.keys(comm).length} commands. I hope you like Megumi and have fun with her.
+Megumi maybe lagging and offline sometimes because she still haven't a server machine yet (I don't have money for server machine). She is hosting from my home, sorry for that.
+
+Have a fun with Megumi (*It's not like I want you to have fun with Megumi-chan.* :flushed:)
+
+**Prefix:** M.
+**Help:** M.help
+**Megumi's Coding Language:** NodeJS (version: 12.13.0)
+**Bot Library:** DiscordJS (version: unstable master)
+**Libraries used:** 2
+**Created:** 2019.12.15 19:30 (GTM +0530)`,
 				thumbnail: config.icon,
 				fields: [
 					{
@@ -294,7 +305,7 @@ ${"`"}ping, stats, about, help${"`"}
 					url: 'https://i.imgur.com/7BM6r9H.png'
 				},
 				footer: {
-					text: 'ImeshChamara#1418',
+					text: 'Bot by ImeshChamara#1418',
 					icon_url: 'https://i.imgur.com/TCmnCFZ.png'
 				},
 				timestamp: new Date()
