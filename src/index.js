@@ -547,8 +547,9 @@ client.on('guildDelete', async a => {
 	await (await DB('guild')).deleteOne({t:'guild', g: a.id})
 })
 client.on('guildMemberRemove', async a => {
+	if(process.env.dev) return
 	acUp()
-	var b = await (await DB('guild')).findOne({t:'guild', g: a.id})
+	var b = await (await DB('guild')).findOne({t:'guild', g: a.guild.id})
 	if(!b && b.bye) return
 	var c = a.user.avatar ? a.user.avatarURL({size: 128}) : 'https://cdn.discordapp.com/embed/avatars/1.png?size=128'
 	await (await client.channels.fetch(b.bye)).send({
@@ -567,6 +568,7 @@ client.on('guildMemberRemove', async a => {
 	})
 })
 client.on('guildMemberAdd', async a => {
+	if(process.env.dev) return
 	acUp()
 	var b = await (await DB('guild')).findOne({t:'guild', g: a.guild.id})
 	if(!b && b.wel) return
