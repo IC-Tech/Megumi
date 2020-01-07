@@ -91,7 +91,8 @@ const fn_4 = (a, b) => new Promise((_a, _b) => {
 		embed: {
 			title: '❌ ERROR',
 			color: col[0],
-			description: error.getString(a.code)
+			description: error.getString(a.code),
+			timestamp: new Date()
 		}
 	}).then(d).catch(d)
 	b[0].react('❌').then(c).catch(c)
@@ -242,7 +243,12 @@ ${"`"}ping, stats, about, help${"`"}
 			await fn_1(fn_0(b), {
 				color: d,
 				title: `❔ Help${a.length > 1 ? ` » ${a[1]}` : ''}`,
-				description: c
+				description: c,
+				footer: {
+					text: 'ImeshChamara#1418',
+					icon_url: 'https://i.imgur.com/TCmnCFZ.png'
+				},
+				timestamp: new Date()
 			})
 		}
 	},
@@ -261,7 +267,8 @@ ${"`"}ping, stats, about, help${"`"}
 				description: `**${d}**'s avatar is located 🔗 [here](${c})`,
 				image: {
 					url: c
-				}
+				},
+				timestamp: new Date()
 			})
 		}
 	},
@@ -310,7 +317,8 @@ ${"`"}ping, stats, about, help${"`"}
 			await fn_1(fn_0(b), {
 				color: col[7],
 				title: '⏱ Ping',
-				description: `Yes, I'm online. ${process.env.dev ? `but I\'m in development mode.${!c ? ' ' : '\n'}`: ''}${d}`
+				description: `Yes, I'm online. ${process.env.dev ? `but I\'m in development mode. `: ''}${!c ? '' : '\n'}${d}`,
+				timestamp: new Date()
 			})
 		}
 	},
@@ -322,7 +330,8 @@ ${"`"}ping, stats, about, help${"`"}
 				await fn_1(b, {
 					title: '🤖 ACCESS DENIED',
 					color: col[0],
-					description: 'You have not access to this function.'
+					description: 'You have not access to this function.',
+					timestamp: new Date()
 				}, '❌')
 				return
 			}
@@ -356,7 +365,8 @@ ${"`"}ping, stats, about, help${"`"}
 			if(done) await fn_1(b, {
 				title: done == 1 || done.length == 1 ? '😎 Success' : done[0],
 				color: col[2],
-				description: done == 1 ? 'Request has successfully finished.' : (done.length == 1 ? done[0] : done[1])
+				description: done == 1 ? 'Request has successfully finished.' : (done.length == 1 ? done[0] : done[1]),
+				timestamp: new Date()
 			}, '✅')
 		}
 	},
@@ -457,7 +467,8 @@ ${"`"}ping, stats, about, help${"`"}
 `,
 				thumbnail: {
 					url: config.icon
-				}
+				},
+				timestamp: new Date()
 			})
 		}
 	},

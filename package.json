@@ -1,5 +1,5 @@
 {
-  "name": "202000032040",
+  "name": "Megumi",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -20,10 +20,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IC-Tech/202000032040.git"
+    "url": "git+https://github.com/IC-Tech/Megumi.git"
   },
   "bugs": {
-    "url": "https://github.com/IC-Tech/202000032040/issues"
+    "url": "https://github.com/IC-Tech/Megumi/issues"
   },
-  "homepage": "https://github.com/IC-Tech/202000032040#readme"
+  "homepage": "https://github.com/IC-Tech/Megumi#readme"
 }
