@@ -48,6 +48,9 @@ exports.actions = {
 	kick: [ '👠 kick', '**_0_** kicks _3_', 'kick', str.actions.kick ],
 	cuddle: [ '😍 Cuddle', '**_0_** cuddles _3_', 'cuddle', str.actions.cuddle ],
 	angry: [ '😤 Angry', '**_0_** is angry _3_', 'angry', str.actions.angry ],
-	nosebleed: [ '😍 Nosebleed', '**_0_** is nosebleeding _3_', 'nosebleed', str.actions.nosebleed ],
-	blush: [ '😳 Blush', '**_0_** is shy _3_', 'blush', str.actions.blush ]
+	nosebleed: [ '😍 Nosebleed', '**_0_**\'s nosebleeding _3_', 'nosebleed', str.actions.nosebleed ],
+	blush: [ '😳 Blush', '**_0_** is very shy _3_', 'blush', str.actions.blush ],
+	scream: [ '😱 Scream', '**_0_** is screaming _3_', 'scream', str.actions.scream ],
+	shoot: [ '🔫 Shoot', '**_0_** is shooting _3_', 'shoot', str.actions.shoot ],
+	smug: [ '😁 Smug', '**_0_** is in proud _3_', 'smug', str.actions.smug ]
 }

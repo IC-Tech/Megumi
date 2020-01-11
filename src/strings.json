@@ -45,7 +45,10 @@
 		"cuddle": "This command shows that you are cuddle someone.",
 		"angry": "This command shows that you are angry now.",
 		"nosebleed": "This command shows that you are nose-bleeding now.",
-		"blush": "This command shows that you are blushing now."
+		"blush": "This command shows that you are blushing now.",
+		"scream": "This command shows that you are screaming now.",
+		"shoot": "This command shows that you are shooting now.",
+		"smug": "This command shows that you feel proud of yourself."
 	},
 	"command": {
 		"help": "this command helps you to find commands and tells what they do.\n\n**example**\nM.help\nM.help smile",

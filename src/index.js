@@ -266,7 +266,7 @@ ${"`"}ping, stats, about, help${"`"}
 			}
 			await fn_1(fn_0(b), Object.assign({
 				color: d,
-				title: `❔ Help${a.length > 1 ? ` » ${a[1]}` : ''}`,
+				title: `❔ Help${a.length > 1 ? ` » ${a[1].substr(0,1).toUpperCase() + a[1].substr(1)}` : ''}`,
 				description: c,
 				timestamp: new Date()
 			}, e == 1 ? ({
