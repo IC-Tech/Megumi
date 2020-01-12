@@ -10,7 +10,8 @@ const config = require('../config.json')
 const gif = require('./gif.js').gif
 const perm = require('./permissions.js')
 const error = require('./errors.js')
-const ver = require('../package.json').version
+const pack = require('../package.json')
+const botsfordiscord = require('./botsfordiscord.js')
 
 var settings = {
 	logs: !process.env.dev
@@ -314,9 +315,10 @@ Have a fun with Megumi (*It's not like I want you to have fun with Megumi-chan.*
 
 **Prefix:** M.
 **Help:** M.help
-**Megumi's Coding Language:** NodeJS (version: 12.13.0)
+**Megumi's Coding Language:** NodeJS (version: ${process.versions.node})
 **Bot Library:** DiscordJS (version: unstable master)
-**Libraries used:** 2
+**Libraries used:** ${Object.keys(pack.dependencies).length}
+**Version:** ${pack.version}
 **Created:** 2019.12.15 19:30 (GTM +0530)`,
 				thumbnail: config.icon,
 				fields: [
@@ -440,7 +442,7 @@ Have a fun with Megumi (*It's not like I want you to have fun with Megumi-chan.*
 			await fn_1(fn_0(b), {
 			color: col[8],
 			author: {
-				name: `Megumi ${ver}`,
+				name: `Megumi ${pack.version}`,
 				icon_url: config.icon
 			},
 			description:
@@ -526,6 +528,7 @@ Object.keys(actions).forEach(a=> {
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
     acUp()
+    setInterval(a=> botsfordiscord.setStats(client.guilds.size), 30 * 60000)
     //client.users.get(config.admin).send('IC-Bot is active')
 })
 /* future code function, no need for now
