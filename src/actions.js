@@ -37,7 +37,7 @@ exports.actions = {
 	lick: [ '😛 lick', '**_0_** licks _3_', 'lick', str.actions.lick ],
 	facepalm: [ '😒 Facepalm', '**_0_** facepalms _3_', 'facepalm', str.actions.facepalm ],
 	pout: [ '😤 Pout', '**_0_** want to pout now _3_', 'pout', str.actions.pout ],
-	greet: [ '✋ Greet', '**_0_** greets _3_', 'wave', str.common[0] ],
+	greet: [ '✋ Greet', '**_0_** greets _3_', 'wave', str.actions.greet ],
 	shrug: [ '🤨 Shrug', '**_0_** shrugs _3_', 'shrug', str.actions.shrug ],
 	clap: [ '👏 Clap', '**_0_** claps _3_', 'clap', str.actions.clap ],
 	highfive: [ '✋ High five', '**_0_** highfives _3_', 'highfive', str.actions.highfive ],
@@ -52,5 +52,5 @@ exports.actions = {
 	blush: [ '😳 Blush', '**_0_** is very shy _3_', 'blush', str.actions.blush ],
 	scream: [ '😱 Scream', '**_0_** is screaming _3_', 'scream', str.actions.scream ],
 	shoot: [ '🔫 Shoot', '**_0_** is shooting _3_', 'shoot', str.actions.shoot ],
-	smug: [ '😁 Smug', '**_0_** is in proud _3_', 'smug', str.actions.smug ]
+	smug: [ '😁 Smug', '**_0_** is in pride _3_', 'smug', str.actions.smug ]
 }

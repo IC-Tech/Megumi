@@ -48,7 +48,8 @@
 		"blush": "This command shows that you are blushing now.",
 		"scream": "This command shows that you are screaming now.",
 		"shoot": "This command shows that you are shooting now.",
-		"smug": "This command shows that you feel proud of yourself."
+		"smug": "This command shows that you feel proud of yourself.",
+		"greet": "This command shows that you are greeting."
 	},
 	"command": {
 		"help": "this command helps you to find commands and tells what they do.\n\n**example**\nM.help\nM.help smile",
