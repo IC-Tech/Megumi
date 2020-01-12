@@ -498,6 +498,21 @@ Have a fun with Megumi (*It's not like I want you to have fun with Megumi-chan.*
 			})
 		}
 	},
+	rolelist: {
+		des: str.command.rolelist,
+		ac: async (a, b) => {
+			if(await noDM(b)) return 
+			b = fn_0(b)
+			var c = []
+			Array.from(b[5].roles.keys()).map(a=> b[5].roles.get(a).name).forEach(a => a != '@everyone' ? c.push(a) : 0)
+			var g = (await fn_1(b, {
+				color: col[7],
+				title: `📄 RoleList`,
+				description: `There are ${c.length} roles in this server, ${'`'}${c.join(', ')}${'`'}.`,
+				timestamp: new Date()
+			}))
+		}
+	},
 	welcome: {
 		des: str.command.welcome,
 		ac: async (a, b) => await welcome_bye(a,b,0)
@@ -523,7 +538,8 @@ Object.keys(actions).forEach(a=> {
 ;([
 	['sys', 'system'],
 	['info', 'about'],
-	['statistics', 'stats']
+	['statistics', 'stats'],
+	['listroles', 'rolelist']
 ]).forEach(a=> comm[a[0]] = fn_6(a[1]))
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)

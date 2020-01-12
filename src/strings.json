@@ -63,6 +63,7 @@
 		"stats": "this command help to view Megumi's statistics.\n\n**example**\nM.stats",
 		"invite": "this command help to invite Megumi for a server.\n\n**example**\nM.invite",
 		"welcome": "this command help you to send welcome messages in your server.\n\n**example**\nM.welcome no\nM.welcome #channel",
-		"goodbye": "this command help you to send goodbye messages in your server.\n\n**example**\nM.goodbye no\nM.goodbye #channel"
+		"goodbye": "this command help you to send goodbye messages in your server.\n\n**example**\nM.goodbye no\nM.goodbye #channel",
+		"rolelist": "this command help you to find all the roles in the server.\n\n**example**\nM.rolelist"
 	}
 }
