@@ -42,7 +42,14 @@ const fn_1 = async (b, a, c = '✅') => {
 		var d = await b[1].send({
 			embed: a
 		})
-		if(c) await b[0].react(c)
+		if(c) {
+			try {
+				await b[0].react(c)
+			}
+			catch (a) {
+				if(([10008]).indexOf(a.code) < 0) return await fn_4(a, b)
+			}
+		}
 		return d
 	}
 	catch (a) {
@@ -61,7 +68,7 @@ const fn_3 = (b, ...a) => fn_1(b, {
 })
 const fn_4 = (a, b) => new Promise((_a, _b) => {
 	var d = _ => {
-		if(a.code != 50013) {
+		if(error.notBugs.indexOf(a.code) < 0) {
 			console.log(new Date(), a)
 			if(settings.logs) client.users.get(config.admin).send({
 				embed: {
@@ -542,10 +549,10 @@ Object.keys(actions).forEach(a=> {
 	['listroles', 'rolelist']
 ]).forEach(a=> comm[a[0]] = fn_6(a[1]))
 client.on('ready', async () => {
-    console.log(`Logged in as ${client.user.tag}!`)
-    acUp()
-    setInterval(a=> botsfordiscord.setStats(client.guilds.size), 30 * 60000)
-    setInterval(a=> acUp(), 1 * 60000)
+	console.log(`Logged in as ${client.user.tag}!`)
+	acUp()
+	setInterval(a=> botsfordiscord.setStats(client.guilds.size), 30 * 60000)
+	setInterval(a=> acUp(), 1 * 60000)
 })
 /* future code function, no need for now
 client.on('messageReactionAdd', async (reaction, user) => {
