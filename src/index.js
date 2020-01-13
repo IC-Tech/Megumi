@@ -545,7 +545,7 @@ client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
     acUp()
     setInterval(a=> botsfordiscord.setStats(client.guilds.size), 30 * 60000)
-    //client.users.get(config.admin).send('IC-Bot is active')
+    setInterval(a=> acUp(), 1 * 60000)
 })
 /* future code function, no need for now
 client.on('messageReactionAdd', async (reaction, user) => {
@@ -557,17 +557,14 @@ client.on('messageReactionRemove', async (reaction, user) => {
 */
 client.on('guildCreate', async a => {
 	if(process.env.dev) return
-	acUp()
 	await db_findNUpdate(await DB('guild'), a=>([a.created = new Date('12/08/2019'), a])[1], {f: {t:'guild', g:a.id}, def: {t:'guild', g:a.id}})
 })
 client.on('guildDelete', async a => {
 	if(process.env.dev) return
-	acUp()
 	await (await DB('guild')).deleteOne({t:'guild', g: a.id})
 })
 client.on('guildMemberRemove', async a => {
 	if(process.env.dev) return
-	acUp()
 	var b = await (await DB('guild')).findOne({t:'guild', g: a.guild.id})
 	if(!b && b.bye) return
 	var c = a.user.avatar ? a.user.avatarURL({size: 128}) : 'https://cdn.discordapp.com/embed/avatars/1.png?size=128'
@@ -588,7 +585,6 @@ client.on('guildMemberRemove', async a => {
 })
 client.on('guildMemberAdd', async a => {
 	if(process.env.dev) return
-	acUp()
 	var b = await (await DB('guild')).findOne({t:'guild', g: a.guild.id})
 	if(!b && b.wel) return
 	var c = a.user.avatar ? a.user.avatarURL({size: 128}) : 'https://cdn.discordapp.com/embed/avatars/1.png?size=128'
