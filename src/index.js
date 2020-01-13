@@ -520,6 +520,19 @@ Have a fun with Megumi (*It's not like I want you to have fun with Megumi-chan.*
 			}))
 		}
 	},
+	say: {
+		des: str.command.say,
+		ac: async (a,b) => {
+			await fn_1(b = fn_0(b), {
+				color: col[7],
+				description: (a = a.slice(1).join(' ')) == '' ? `*Baka, I'm not say anything, Hmmp :flushed:*` : a,
+				timestamp: new Date(),
+				footer: {
+					text: `say by ${a == '' ? 'Megumi' : (b[2].username + '#' + b[2].discriminator)}`
+				}
+			})
+		}
+	},
 	welcome: {
 		des: str.command.welcome,
 		ac: async (a, b) => await welcome_bye(a,b,0)
